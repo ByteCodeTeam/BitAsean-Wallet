@@ -1,16 +1,12 @@
 # BitAsean Wallet 
-The Only mobile ligthwallet built with Ξthereum community in mind!
 
 # Features
-
-- Create a HD ligthwallet 
 - Manage an Ethereum wallet address
 - Set host node address
 - Send / Receive ETH
 - Send / Receive BitAsean token
 - List your transactions
 - Share Address via SMS, Email or Whisper (Shh)
-- Share your geolocation
 - Request payments via SMS, Email or Whisper (Shh)
 - Send messages / images to friends and community using Whisper protocol in unpersisted chat
 - Send private unpersisted crypted messages to friends
