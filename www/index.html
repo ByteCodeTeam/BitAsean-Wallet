@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta http-equiv="Content-Security-Policy" content="">
+
+    <title>BitAsean Wallet</title>
+
+    <link href="css/ionic.app.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/ng-tags-input.css" rel="stylesheet">  
+    <link href="css/ng-tags-input.bootstrap.css" rel="stylesheet">  
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.min.js"></script>
+    <script src="lib/ionic-platform-web-client/dist/ionic.io.bundle.min.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
+    <!-- Cordova is bootstrapped by ionic-platform-web-client, uncomment this if you remove ionic-platform-web-client... -->
+    <!-- <script src="cordova.js"></script> -->
+
+
+    <!-- custom added js -->
+    <script src="lib/thirdparty/qrcode.js"></script>
+    <script src="lib/thirdparty/angular-qr.js"></script>
+    <script src="lib/thirdparty/lightwallet.js"></script>
+    <script src="lib/thirdparty/web3.js"></script>
+    <script src="lib/thirdparty/hooked-web3-provider.js"></script>
+    <script src="lib/thirdparty/async.js"></script>
+    <script src="lib/thirdparty/ionic.swipecards.js"></script>
+    <script src="lib/thirdparty/angular-sanitize.js"></script>
+    <script src="lib/thirdparty/xml2json.min.js"></script>
+    <script src="lib/thirdparty/blockies.min.js"></script>
+    <script src="lib/thirdparty/angular-load.js"></script>
+    <script src="lib/thirdparty/lockscreen.js"></script>
+    <script src="lib/phaser/phaser.min.js"></script>
+    
+	<!--script src="lib/ionic-lock-screen/dist/index.js"></script-->
+    <script src="lib/thirdparty/ng-tags-input.js"></script>
+    <script src="js/nfcFilters.js"></script>
+    
+    <!-- Swarm js lib -->
+    <script src="lib/thirdparty/swarm.min.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+    <!-- controllers -->
+    <script src="js/controllers/controllers.js"></script>
+    <script src="js/controllers/ctrlWallet.js"></script>
+    <script src="js/controllers/ctrlAddress.js"></script>
+    <script src="js/controllers/ctrlSettings.js"></script>
+    <script src="js/controllers/ctrlFriends.js"></script>
+    <script src="js/controllers/ctrlDappleths.js"></script>
+    <script src="js/controllers/ctrlChats.js"></script>
+    <script src="js/controllers/ctrlTransactions.js"></script>
+
+    <!-- services -->
+    <script src="js/services/services.js"></script>
+    <script src="js/services/svcFriends.js"></script>
+    <script src="js/services/svcChat.js"></script>
+    <script src="js/services/svcTransactions.js"></script>
+    <script src="js/services/svcExchange.js"></script>
+    <script src="js/services/svcGeolocation.js"></script>
+    <script src="js/services/svcNFC.js"></script>
+    <script src="js/services/svcSwarm.js"></script>
+    <script src="js/services/svcENS.js"></script>
+  </head>
+  <body ng-app="leth">
+	<lock-screen></lock-screen>
+    <ion-nav-view></ion-nav-view>
+  </body>
+</html>

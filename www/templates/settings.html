@@ -1,0 +1,100 @@
+<ion-view view-title="Settings">
+  <ion-content class="has-header has-tabs">
+    <ion-refresher pulling-txt="load" on-refresh="refresh()"></ion-refresher>
+  	<ion-scroll class="list scrollBg" overflow-scroll="true" >
+   	 	<div class="padding subdued">Host Provider Address  </div>
+		<div class="item padding-on-borders" >
+		 	<div class="row no-bmp">
+		 		<div class="col text-left no-bmp col-50 col-center">Host type 
+		 			<span class="item-note">#{{lastBlock}}</span>
+			    </div>
+				 <div class="col text-left col-center col-33">
+					<span class="{{badgeNetwork}} relative-position">{{nameNetwork}}&nbsp;</span>
+				</div>
+				<div class="col text-right no-bmp col-20 col-center">
+					<button class="button button-clear" ng-click="enableEditHost(!editableHost)">
+				 		<i class="icon ion-edit"></i>
+				 	</button>
+				 </div>				
+		 	</div>
+		</div>
+		<div class="item item-input" ng-if="showEditHost()">
+		    <label class="item-input-wrapper"><input type="text" ng-model="addrHost" placeholder="type host address"></label>
+		    <button class="button button-clear" ng-click="editHost(addrHost)">
+		        <i class="icon ion-plus-circled"></i>
+		     </button>
+			<button class="button button-clear" ng-click="deleteHost(addrHost)">
+				<i class="icon ion-minus-circled"></i>
+		    </button>
+		</div>
+		<div class="item item-select">
+		<div class="row no-bmp">
+		<div class="col text-left no-bmp   col-center">Host </div>
+			<div class="col padding-on-borders  col-center">	
+				<select class="item-select " ng-model="addrHost" ng-required="true" ng-init="addrHost" ng-change="editHost(addrHost)">
+					<option ng-repeat="host in hostsList" value="{{host}}" ng-selected="addrHost==host"  ng-model="addrHost">{{host}}</option>
+				</select>
+			</div>		
+			</div>		
+		</div>		
+		<div class="padding subdued">Backup</div>
+		<div class="item item-button-right">
+		    Backup your Wallet
+		    <button class="button button-clear" ng-click="backupWallet()">
+		        <i class="icon ion-ios-download"></i>
+		    </button>
+		</div>
+		<div class="item item-button-right">
+		    Restore a Wallet
+		    <button class="button button-clear" ng-click="chooseImportWallet()">
+		        <i class="icon ion-ios-upload"></i>
+		    </button>
+		</div>
+		<div class="padding subdued">PIN</div>
+	    <ion-toggle  ng-model="pin.checked" ng-checked="pin.checked">
+			Enable
+		</ion-toggle>
+	    <ion-toggle  ng-model="touch.checked" ng-checked="touch.checked" ng-if="isIOS()">
+			Touch ID 
+		</ion-toggle>
+		<!-- temporary disabled used to encrypt
+		<div class="item item-button-right">
+		    Change PIN code
+		    <button class="button button-clear" ng-click="openChangeCodeModal()">
+		        <i class="icon ion-lock-combination"></i>
+		    </button>
+		</div> 
+		-->
+		<div class="padding subdued">Activity</div>
+		<ion-toggle  ng-model="backmode.checked" ng-checked="backmode.checked">
+			Background mode 
+		</ion-toggle>
+		<ion-toggle  ng-model="vibration.checked" ng-checked="vibration.checked">
+			Vibrate notification 
+		</ion-toggle>
+		<div class="padding subdued" ng-if="nfcAvailable">Communication</div>
+	    <ion-toggle  ng-model="nfc.checked" ng-checked="nfc.checked" ng-if="nfcAvailable">
+			NFC sensor
+		</ion-toggle>
+		<div class="padding subdued">Geolocation</div>
+	    <ion-toggle  ng-model="geo.checked" ng-checked="geo.checked">
+			{{lat}} {{long}}
+		</ion-toggle>
+		<div class="padding subdued">Exchange</div>
+		<div class="item item-select">
+			Base Currency
+		   	<select class="item-select" ng-model="baseCurrency" ng-init="baseCurrency" ng-change="setCurrency(baseCurrency)">
+				<option ng-repeat="c in currencies" value="{{c}}" ng-selected="baseCurrency.name==c.name">{{c.name}} {{c.symbol}}</option>
+			</select>
+		</div>		
+		<div class="divider padding" align="center">
+			<p><img ng-src="img/inzhoop.png" id="headerSetting"></p>
+			<p>LΞTH v.0.25.0
+				<a ng-if="isIOS()" href="itms-services://?action=download-manifest&url=
+https://www.inzhoop.com/download/ios/manifest.plist">(update)</a>
+			</p>
+			<p><a href="#" onclick="window.open('https://github.com/inzhoop-co/LETH/blob/master/LICENSE','_blank','location=yes','closebuttoncaption=Return');">GPL-3.0 License</a></p>
+		</div>		
+	</ion-scroll>
+  </ion-content>
+</ion-view>

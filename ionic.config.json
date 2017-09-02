@@ -1,0 +1,11 @@
+{
+  "name": "BitAsean Wallet",
+  "app_id": "com.bytecodeteam.baswallet",
+  "type": "ionic1",
+  "watchPatterns": [
+    "scss/**/*"
+  ],
+  "integrations": {
+    "gulp": {}
+  }
+}
