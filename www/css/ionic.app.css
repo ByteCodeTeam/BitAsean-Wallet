@@ -3286,7 +3286,8 @@ textarea {
   /* 2 */ }
 
 img {
-  -webkit-user-drag: none; }
+  -webkit-user-drag: none;
+   vertical-align: middle;  }
 
 
 
@@ -3765,8 +3766,7 @@ a.subdued {
     border-radius: 0;
     border-color: #d1d3d6;
     background-color: transparent;
-    color: #007aff;
-    font-size: 21px; }
+    color: #007aff; }
     .action-sheet .button:hover {
       color: #007aff; }
     .action-sheet .button.destructive {
