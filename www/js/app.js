@@ -51,7 +51,7 @@ var app = angular.module('leth', ['ionic', 'nfcFilters', 'ngTagsInput', 'angular
           //console.log("login successfully");
           $rootScope.hasLogged = true; 
           localStorage.HasLogged = $rootScope.hasLogged;
-          $location.path('/tab/address');
+          $location.path('/tab/wallet/');
       } 
 
       if (window.cordova && window.cordova.plugins.Keyboard) {

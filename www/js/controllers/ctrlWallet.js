@@ -2,9 +2,11 @@ angular.module('leth.controllers')
   .controller('WalletCtrl', function ($scope, $rootScope, $stateParams, $ionicLoading, $ionicModal, $state, 
                                       $ionicPopup, $cordovaBarcodeScanner, $ionicActionSheet, 
                                       $timeout, ENSService, AppService, Transactions,ExchangeService, Chat) {
+    refresh();
+	
     var TrueException = {};
     var FalseException = {};
-
+	
     var setCoin = function(index){
       if(index==0){
         $scope.idCoin = 0;
@@ -27,20 +29,25 @@ angular.module('leth.controllers')
         $scope.balance = AppService.balance($scope.unit);
         if($scope.addrTo!=undefined)
           $scope.balAddrTo = parseFloat(web3.eth.getBalance($scope.addrTo))/$scope.unit;
-        $scope.symbolFee = $scope.symbolCoin;        
-      }
+        $scope.symbolFee = $scope.symbolCoin;   
+	  }
       else {
       	$scope.getNetwork();
-    		var activeCoins=$scope.listCoins.filter( function(obj) {return obj.Network==$scope.nameNetwork && obj.Installed ;} );
-        $scope.idCoin = index;
-        $scope.logoCoin = activeCoins[index-1].Logo;
+    	var activeCoins=$scope.listCoins.filter( function(obj) {return obj.Network==$scope.nameNetwork && obj.Installed ;} );
+         
+		if(activeCoins[index-1].Symbol === 'BAS'){
+			$scope.logoCoin = 'img/logo.png'; 
+		}else{
+			$scope.logoCoin = activeCoins[index-1].Logo;
+		} 
+		$scope.idCoin = index; 
         $scope.descCoin = activeCoins[index-1].Abstract;
         $scope.symbolCoin = activeCoins[index-1].Symbol;
         $scope.decimals = activeCoins[index-1].Decimals;
         $scope.xCoin = activeCoins[index-1].Exchange;          
         $scope.methodSend = activeCoins[index-1].Send;
         $scope.contractCoin = web3.eth.contract(activeCoins[index-1].ABI).at(activeCoins[index-1].Address);
-    		$scope.listUnit = activeCoins[index-1].Units;
+    	$scope.listUnit = activeCoins[index-1].Units;
         $scope.unit = $scope.listUnit[0].multiplier;
         $scope.balance = AppService.balanceOf($scope.contractCoin,$scope.unit + 'e+' + $scope.decimals);
         if($scope.addrTo!=undefined)
@@ -71,7 +78,10 @@ angular.module('leth.controllers')
       $scope.minFee = 371007000000000;
       $scope.maxFee = 11183211000000000;
       $scope.step = 344506500000000;
-      $scope.fee = 1060020000000000;
+	  
+	  if($scope.fee == 0){
+		$scope.fee = 371007000000000;  
+	  }  
 
       $scope.feeLabel = $scope.fee / $scope.unit;
 
@@ -201,12 +211,10 @@ angular.module('leth.controllers')
       $scope.fee= val;
       var unit = 1.0e18;
       if($scope.idCoin==0)
-        unit = $scope.unit;
-
-        
-
+        unit = $scope.unit;  
       $scope.feeLabel = $scope.fee  / unit;
     }
+	$scope.setFee(371007000000000);
 
     $scope.unitChanged = function(u){
       var unt = $scope.listUnit.filter(function (val) {
@@ -274,11 +282,18 @@ angular.module('leth.controllers')
 
     $scope.chooseCoin = function(){  
 		  //$scope.getNetwork();
-      var buttonsGroup = [{text: '<span style="text-align:left"><img width="30px" heigth="30px" src="img/ethereum-icon.png"/> Ether [Ξ]</span>'}];
+      var buttonsGroup = [{text: '<span style="text-align:left"><img width="30px" heigth="30px" src="img/ethereum-icon.png" style="vertical-align: middle !important;"/> Ether [ETH]</span>'}];
 
-	   var activeCoins=$scope.listCoins.filter( function(obj) {return (obj.Network==$scope.nameNetwork) && (obj.Installed);} );
+	  var activeCoins=$scope.listCoins.filter( function(obj) {return (obj.Network==$scope.nameNetwork) && (obj.Installed);} );
       for (var i = 0; i < activeCoins.length; i++) {
-        var text = {text: '<img width="30px" heigth="30px" src="' + activeCoins[i].Logo + '"/> ' + activeCoins[i].Name + " [" + activeCoins[i].Symbol + "]"};
+		var coinLogo;  
+		if(activeCoins[i].Symbol === 'BAS'){
+			coinLogo = 'img/logo.png'; 
+		}else{
+			coinLogo = activeCoins[i].Logo;
+		}
+		
+        var text = {text: '<img width="30px" heigth="30px" src="' + coinLogo + '" style="vertical-align: middle !important;"/> ' + activeCoins[i].Name + ' [' + activeCoins[i].Symbol + ']'};
         buttonsGroup.push(text);
       }
 
@@ -289,7 +304,7 @@ angular.module('leth.controllers')
         destructiveButtonClicked:  function() {
           hideSheet();
         },
-        buttonClicked: function(index) {
+        buttonClicked: function(index) { 
           setCoin(index);
           hideSheet();
           $timeout(function() {
@@ -302,4 +317,7 @@ angular.module('leth.controllers')
     $scope.listTransaction = function(){
       $state.go('tab.transall');
     }
+	
+	
+
   })
