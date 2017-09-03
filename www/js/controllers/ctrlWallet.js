@@ -83,7 +83,7 @@ angular.module('leth.controllers')
 		$scope.fee = 371007000000000;  
 	  }  
 
-      $scope.feeLabel = $scope.fee / $scope.unit;
+      $scope.setFee($scope.fee);
 
       updateExchange();
     })
