@@ -763,11 +763,10 @@ angular.module('leth.controllers', [])
               localStorage.Transactions = JSON.stringify({});
               localStorage.Friends = JSON.stringify($scope.friends);
 
-              $rootScope.hasLogged = true;
-
-              var msg = 'new user added';
-              Chat.sendMessage(msg);
-              
+              $rootScope.hasLogged = true;   
+              //var msg = 'new user added';
+              //Chat.sendMessage(msg); 
+			  
               refresh();
               setChatFilter();
               $state.go('tab.wallet');
@@ -782,7 +781,12 @@ angular.module('leth.controllers', [])
       $timeout(function() {
          infoPopup.close(); 
       }, 5000);
+	  
+	  
     }
+	
+	
+	
   };
 
   $scope.ChangeCode = function(oldCode, newCode) {
@@ -1504,9 +1508,6 @@ angular.module('leth.controllers', [])
     }
   );     
 
-  var addBitAseanToken = function(){
-     loadTokenData('');
-  }
-  
+
   
 }) //fine AppCtrl
