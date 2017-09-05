@@ -6,6 +6,7 @@
     "scss/**/*"
   ],
   "integrations": {
-    "gulp": {}
+    "gulp": {},
+    "cordova": {}
   }
 }

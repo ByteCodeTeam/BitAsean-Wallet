@@ -958,11 +958,11 @@ angular.module('leth.controllers', [])
       scope: $scope,
       animation: 'slide-in-down',
       backdropClickToClose: false,
-      hardwareBackButtonClose: false
+      hardwareBackButtonClose: true
     }).then(function (modal) {
       entropyModal = modal;
       entropyModal.show();
-      startWatching();
+      //startWatching();
     });
   };
   var closeEntropyModal = function () {
@@ -975,7 +975,7 @@ angular.module('leth.controllers', [])
       scope: $scope,
       animation: 'slide-in-right',
       backdropClickToClose: false,
-      hardwareBackButtonClose: false
+      hardwareBackButtonClose: true
     }).then(function (modal) {
       loginModal = modal;
       loginModal.show();
@@ -1026,7 +1026,7 @@ angular.module('leth.controllers', [])
   });
 
   $scope.goLogin = function(random){
-    closeEntropyModal();
+    //closeEntropyModal();
     // create keystore and account and store them
     var extraEntropy = random.toString();
     $scope.randomSeed = lightwallet.keystore.generateRandomSeed(extraEntropy);
@@ -1038,7 +1038,7 @@ angular.module('leth.controllers', [])
   };
 
   $scope.restoreLogin = function(seed){
-    closeEntropyModal();
+    //closeEntropyModal();
     // restore keystore from seed 
     $scope.randomSeed = seed;
     createLoginModal();
@@ -1069,7 +1069,8 @@ angular.module('leth.controllers', [])
 
     }else{
       $scope.createWallet(seed, pw, cod);
-      $scope.closeLoginModal();      
+      $scope.closeLoginModal();
+      closeEntropyModal();      
     }
   };
 

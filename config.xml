@@ -8,7 +8,7 @@
       hacktar
     </author>
     <content src="index.html" />
-    <access origin="*" subdomains="true" />
+    <access origin="10.0.0.2" subdomains="true" />
     <allow-navigation href="*" />
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
@@ -81,9 +81,13 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <icon src="resources/android/icon/drawable-xhdpi-icon.png" />
-    <plugin name="phonegap-plugin-barcodescanner" spec="https://github.com/wildabeast/BarcodeScanner.git" />
+    <plugin name="cordova-plugin-compat" spec="^1.1.0" />
+    <plugin name="cordova-plugin-email-composer" />
+    <plugin name="cordova-plugin-http" spec="~1.2.0" />
     <plugin name="de.appplant.cordova.plugin.email-composer" spec="https://github.com/katzer/cordova-plugin-email-composer.git" />
     <plugin name="de.appplant.cordova.plugin.local-notification" spec="https://github.com/katzer/cordova-plugin-local-notifications.git" />
     <plugin name="phonegap-nfc" spec="~0.6.6" />
-    <plugin name="cordova-plugin-http" spec="~1.2.0" />
+    <plugin name="phonegap-plugin-barcodescanner" spec="https://github.com/wildabeast/BarcodeScanner.git" />
+    <engine name="android" spec="~6.1.2" />
+    <plugin name="cordova-plugin-device-motion" spec="~1.2.5" />
 </widget>

@@ -186,6 +186,15 @@ var app = angular.module('leth', ['ionic', 'nfcFilters', 'ngTagsInput', 'angular
           }
         }
       })
+	  .state('tab.map', {
+        url: '/map',
+        views: {
+          'map': {
+            templateUrl: 'templates/map.html',
+            controller: 'MapCtrl'
+          }
+        }
+      })
       .state('tab.friend', {
         url: '/friends/:Friend',
         views: {
