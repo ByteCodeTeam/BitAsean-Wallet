@@ -5,7 +5,7 @@
       <ion-list class="list" can-swipe="true">
       <ion-item class="item item-divider item-avatar-left  item-icon-right item-avatar-right">
         <img ng-src="{{logoCoin}}" ng-click="scrollRefresh()"/>
-        <label id="{{idCoin}}"><b>{{balance | currency:symbolCoin+' ':decimals}} </b><span class="subdued" ">({{balanceExc}})</span></label>
+        <label id="{{idCoin}}"><b>{{balance | currency:symbolCoin+' ':decimals}} </b><!--span class="subdued" ">({{balanceExc}})</span--></label>
         <p>
           <label >{{descCoin}}</label>
         </p>
@@ -43,7 +43,7 @@
         <div class="item tabs row"> 
           <div class="col col-10"></div>         
           <div class="col col-30">
-            <button class="button button-icon icon ion-ios-list-outline dark" ng-disabled="!transactions.length" ng-click="listTransaction()"> transactions</button>
+            <button class="button button-icon icon ion-ios-list-outline dark"   ng-click="listTransaction()"> transactions</button>
           </div>
           <div class="col col-30"></div>    
           <div class="col col-30"></div>   

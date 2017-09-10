@@ -28,7 +28,7 @@ angular.module('leth.controllers', [])
     //isNfcAvailable();
     //$scope.readCategoryList();
     //$scope.readDappsList();
-    $scope.readCoinsList();
+    //$scope.readCoinsList();
 
     $timeout(function() {$ionicLoading.hide();}, 1000);
   };
@@ -215,9 +215,9 @@ angular.module('leth.controllers', [])
 
     $scope.listCoins = JSON.parse(localStorage.Coins);
 
-    AppService.getStoreCoins().then(function(response){
-      angular.merge($scope.listCoins,response);
-    }) 
+    //AppService.getStoreCoins().then(function(response){
+    //  angular.merge($scope.listCoins,response);
+    //}) 
   };      
 
   $scope.shareByChat = function (friend,payment) {
@@ -769,7 +769,7 @@ angular.module('leth.controllers', [])
 			  
               refresh();
               setChatFilter();
-              $state.go('tab.wallet');
+              $state.go('tab.address');
 
             });
 

@@ -28,9 +28,9 @@ var app = angular.module('leth', ['ionic', 'nfcFilters', 'ngTagsInput', 'angular
       if (typeof localStorage.NodeHost == 'undefined') {
         localStorage.NodeHost = "http://wallet.inzhoop.com:8545";
       }
-      //if (typeof localStorage.HostsList == 'undefined') {
+      if (typeof localStorage.HostsList == 'undefined') {
         localStorage.HostsList=JSON.stringify(["https://api.myetherapi.com/eth","https://mainnet.infura.io/mew","http://wallet.inzhoop.com:8545"]);
-      //}
+      }
       if (typeof localStorage.BaseCurrency == 'undefined') {localStorage.BaseCurrency = JSON.stringify({ name: 'EUR', symbol:'€', value: 'ZEUR'});}      
 	    if(localStorage.PinOn=="true"){
     		$lockScreen.show({
@@ -51,7 +51,8 @@ var app = angular.module('leth', ['ionic', 'nfcFilters', 'ngTagsInput', 'angular
           //console.log("login successfully");
           $rootScope.hasLogged = true; 
           localStorage.HasLogged = $rootScope.hasLogged;
-          $location.path('/tab/wallet/');
+		  $state.go('tab.wallet');
+          //$location.path('/tab/wallet/');
       } 
 
       if (window.cordova && window.cordova.plugins.Keyboard) {
