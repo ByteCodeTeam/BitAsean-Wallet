@@ -140,6 +140,15 @@ var app = angular.module('leth', ['ionic', 'nfcFilters', 'ngTagsInput', 'angular
           }
         }
       })
+	  .state('tab.transactions-etherscan', {
+        url: '/transactions-etherscan/:addr',
+        views: {
+          'wallet': {
+            templateUrl: 'templates/transactions-etherscan.html',
+            controller: 'TransactionsEtherscanCtrl'
+          }
+        }
+      })
       .state('tab.transall', {
         url: '/transactions/:addr',
         views: {
