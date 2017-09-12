@@ -349,6 +349,12 @@ angular.module('leth.controllers')
     $scope.listTransaction = function(){
 		
 		var ref = cordova.InAppBrowser.open('https://etherscan.io/address-tokenpage?a='+$scope.account, '_blank');
+		 	
+		ref.addEventListener('loadstop', function() {  
+			ref.insertCSS({
+            "code": ".table-responsive { height: 100%;}"   
+			}); 
+		})  
 		  
 		//$state.go('tab.transactions-etherscan');
     }
