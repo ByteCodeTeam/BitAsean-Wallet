@@ -958,7 +958,7 @@ angular.module('leth.controllers', [])
       scope: $scope,
       animation: 'slide-in-down',
       backdropClickToClose: false,
-      hardwareBackButtonClose: true
+      hardwareBackButtonClose: false
     }).then(function (modal) {
       entropyModal = modal;
       entropyModal.show();
