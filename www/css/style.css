@@ -547,6 +547,20 @@ bottom: 150;
 
 }
 
+.slidingTabs ul li.tab-active {
+    color: #0e0e0e !important;
+}
+
+.slidingTabs ul li { 
+    color: #0e0e0e !important; 
+}
+
+.slidingTabs ul {
+    background-color: #ffffff !important; 
+}
+.slidingTabs .tab-indicator-wrapper .tab-indicator { 
+    background-color: #3080f6 !important;  
+}
 
 
 /*

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.bytecodeteam.baswallet" version="0.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="org.bitasean.wallet" version="0.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>BitAsean Wallet</name>
     <description>
         BitAsean The Cryptocurrency of ASEAN
@@ -19,6 +19,7 @@
     <preference name="SplashScreenDelay" value="5000" />
     <preference name="AutoHideSplashScreen" value="true" />
     <preference name="ShowSplashScreenSpinner" value="false" />
+    <preference name="FadeSplashScreenDuration" value="1000" />
     <preference name="AndroidPersistentFileLocation" value="Internal" />
     <preference name="iosPersistentFileLocation" value="Library" />
     <preference name="KeyboardDisplayRequiresUserAction" value="false" />
@@ -100,4 +101,12 @@
     <plugin name="cordova-plugin-device-motion" spec="~1.2.5" />
     <plugin name="cordova-plugin-inappbrowser" spec="~1.7.1" />
     <plugin name="cordova-plugin-splashscreen" spec="~4.0.3" />
+    <preference name="xwalkZOrderOnTop" value="true" />
+    <preference name="BackgroundColor" value="0" />
+    <plugin name="cordova-plugin-googlemaps" spec="https://github.com/mapsplugin/cordova-plugin-googlemaps#multiple_maps">
+        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyBTgBq0PWhicmK0bvWvl6Z_Fy60uwRUPYo" />
+        <variable name="API_KEY_FOR_IOS" value="AIzaSyBTgBq0PWhicmK0bvWvl6Z_Fy60uwRUPYo" />
+        <variable name="LOCATION_WHEN_IN_USE_DESCRIPTION" value="My custom when in use message" />
+        <variable name="LOCATION_ALWAYS_USAGE_DESCRIPTION" value="My custom always usage message" />
+    </plugin>
 </widget>
