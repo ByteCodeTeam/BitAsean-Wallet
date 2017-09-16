@@ -1,6 +1,6 @@
 {
   "name": "BitAsean Wallet",
-  "app_id": "com.bytecodeteam.baswallet",
+  "app_id": "org.bitasean.wallet",
   "type": "ionic1",
   "watchPatterns": [
     "scss/**/*"
