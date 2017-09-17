@@ -1,6 +1,8 @@
 angular.module('leth.controllers')
   .controller('AddressCtrl', function ($scope, AppService, $ionicModal, $ionicPopup, $cordovaEmailComposer, $cordovaClipboard, $cordovaSms, $cordovaContacts) {
-    $scope.size = 200;
+    
+	$scope.account = AppService.account(); 
+	$scope.size = 200;
     $scope.correctionLevel = 'H';
     $scope.typeNumber = 12;
     $scope.inputMode = '';

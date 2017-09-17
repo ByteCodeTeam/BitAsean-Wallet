@@ -1468,15 +1468,24 @@ angular.module('leth.controllers', [])
       console.log('backgroundMode deactivated');
       if(localStorage.PinOn=="true"){
         $lockScreen.show({
-          code: JSON.parse(localStorage.AppCode).code,
-          touchId: JSON.parse(localStorage.TouchOn),
-          ACDelbuttons: true,
-          onCorrect: function () {
-            $scope.cancelAllNotifications();
-            $scope.clearBadge();
-          },
-          onWrong: function (attemptNumber) {
-          },
+            code: JSON.parse(localStorage.AppCode).code,
+			touchId: JSON.parse(localStorage.TouchOn),
+			textColor:   "#595A5B",
+			backgroundColor:  "#FFFFFF",
+			buttonColor:  "#4F87F7",
+			buttonTextColor:  "#FFFFFF",
+			buttonPressed:  "#E0E0E0",
+			buttonACColor:   "#FFFFFF",
+			buttonACTextColor:  "#F288A6",
+			buttonDelColor:  "#FFFFFF",
+			buttonDelTextColor: "#F288A6",
+			ACDelbuttons: true,
+			onCorrect: function () {
+				//$scope.cancelAllNotifications();
+				//$scope.clearBadge();
+			},
+			onWrong: function (attemptNumber) { 
+			},
         });
       };
     };

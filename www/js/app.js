@@ -35,7 +35,16 @@ var app = angular.module('leth', ['ionic', 'nfcFilters', 'ngTagsInput', 'angular
 	    if(localStorage.PinOn=="true"){
     		$lockScreen.show({
     			code: JSON.parse(localStorage.AppCode).code,
-          touchId: JSON.parse(localStorage.TouchOn),
+                touchId: JSON.parse(localStorage.TouchOn),
+			    textColor:   "#595A5B",
+				backgroundColor:  "#FFFFFF",
+                buttonColor:  "#4F87F7",
+                buttonTextColor:  "#FFFFFF",
+                buttonPressed:  "#E0E0E0",
+                buttonACColor:   "#FFFFFF",
+                buttonACTextColor:  "#F288A6",
+                buttonDelColor:  "#FFFFFF",
+                buttonDelTextColor: "#F288A6",
     			ACDelbuttons: true,
     			onCorrect: function () {},
     			onWrong: function (attemptNumber) {},
@@ -51,8 +60,8 @@ var app = angular.module('leth', ['ionic', 'nfcFilters', 'ngTagsInput', 'angular
           //console.log("login successfully");
           $rootScope.hasLogged = true; 
           localStorage.HasLogged = $rootScope.hasLogged;
-		  //$state.go('tab.wallet');
-          $location.path('/tab/address');
+		  $state.go('tab.address');
+          //$location.path('/tab/address');
       } 
 
       if (window.cordova && window.cordova.plugins.Keyboard) {
