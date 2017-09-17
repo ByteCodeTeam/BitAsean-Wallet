@@ -108,4 +108,5 @@
         <variable name="LOCATION_WHEN_IN_USE_DESCRIPTION" value="My custom when in use message" />
         <variable name="LOCATION_ALWAYS_USAGE_DESCRIPTION" value="My custom always usage message" />
     </plugin>
+    <plugin name="cordova-plugin-camera" spec="~2.4.1" />
 </widget>
