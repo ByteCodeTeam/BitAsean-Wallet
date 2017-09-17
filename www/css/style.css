@@ -562,6 +562,9 @@ bottom: 150;
     background-color: #3080f6 !important;  
 }
 
+.platform-android .bar .title { 
+    text-align: center;
+}
 
 /*
 .dapp-ion-scroll{

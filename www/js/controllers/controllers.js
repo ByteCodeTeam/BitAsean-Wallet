@@ -28,8 +28,7 @@ angular.module('leth.controllers', [])
     //isNfcAvailable();
     //$scope.readCategoryList();
     //$scope.readDappsList();
-    //$scope.readCoinsList();
-
+    //$scope.readCoinsList(); 
     $timeout(function() {$ionicLoading.hide();}, 1000);
   };
 
@@ -468,14 +467,15 @@ angular.module('leth.controllers', [])
   };
 
   $scope.isValidAddr = function(addr){
-    if(addr){      
-      if(addr.split('.')[1]==ENSService.suffix){
-        //not able to change addrTo scope wallet variable!
-        addr = ENSService.getAddress(angular.lowercase(addr));
-        $scope.ENSResolved = addr;
-      } 
-      else
-        $scope.ENSResolved="";
+    if(addr){   
+		ENSService.init('Mainet');	
+		if(addr.split('.')[1]==ENSService.suffix){
+			//not able to change addrTo scope wallet variable! 
+			addr = ENSService.getAddress(angular.lowercase(addr));
+			$scope.ENSResolved = addr;
+		} 
+		else
+			$scope.ENSResolved="";
     }
 
     if(!web3.isAddress(addr)) {return false};
@@ -535,7 +535,7 @@ angular.module('leth.controllers', [])
             // An error occurred
             console.log('Error!' + error);
           });
-      }//if
+      }
     });        
   };
 

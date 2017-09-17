@@ -117,7 +117,10 @@ angular.module('leth.controllers')
       $scope.setFee($scope.fee); 
       //updateExchange();
 	  $scope.addBitAseanToken();
-	  refresh();
+	  if(activeCoins[i].Symbol === undefined){
+		 refresh(); 
+	  }
+	  
     })
 
     //set BAS for default

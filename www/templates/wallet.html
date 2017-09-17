@@ -16,10 +16,12 @@
       <div class="item">
         <div class="item item-input item-stacked-label item-icon-right">
           <span class="input-label">
-            <laberl class="item-floating-label">Address To</label>
-            <laberl class="item-floating-label">{{ENSResolved | strLimit: 15 : 3}}</label>
+            <label class="item-floating-label">Address To</label>
+            <label class="item-floating-label">{{ENSResolved | strLimit: 15 : 3}}</label>
             <label class="item-floating-label" ng-show="isFriend(addrTo)">{{isFriend(addrTo) | strLimit: 15 : 3}}</label> 
-            <i class="icon ion-ios-person-outline positive" ng-show="!addrTo.length" ng-click="openFriendsModal()"></i>            
+				<i class="icon ion-ios-person-outline positive" ng-show="!addrTo.length" style="margin-right: 40px;" ng-click="openFriendsModal()"></i> 
+				<i class="icon ion-ios-camera-outline positive" ng-click="scanTo()"></i> 
+				 
           </span>
           <span class="item-note">{{balAddrTo | currency:symbolCoin+' ':decimals}}</span>
           <i class="icon ion-ios-personadd-empty positive" ng-show="isFriend(addrTo)=='' && isValidAddr(addrTo)" ng-click="addAddress(addrTo,addrKey)"></i>

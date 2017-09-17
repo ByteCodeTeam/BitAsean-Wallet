@@ -4,12 +4,12 @@
       <span class="badge badge-energized" ng-hide="msgCounter+DMCounter==0"> {{msgCounter + DMCounter}}</span>    
     </ion-nav-back-button>
     <ion-nav-buttons side="right">
-      <a class="button button-clear" ng-href="#/tab/transactions/{{friend.addr}}">
+      <!--a class="button button-clear" ng-href="#/tab/transactions/{{friend.addr}}">
         <i class="icon ion-ios-list-outline"></i>
       </a>&nbsp;
       <a class="button button-clear" ng-href="#/tab/wallet/{{friend.addr}}">
         <i class="icon icon-pay"></i>
-      </a>
+      </a-->
     </ion-nav-buttons>
   </ion-nav-bar>
   <div class="bar bar-subheader bar-transparent">
@@ -24,7 +24,7 @@
       <div ng-repeat="chat in DMchats | filter:isFromTo | orderBy:'message.time'"
         class="message-wrapper">
         <div ng-class="chat.message.from === myidentity ? 'bubble bubble-mine' : 'bubble bubble-other'">
-          <div class="message" ng-class="chat.message.from === myidentity ? 'message-mine' : 'message-other'" on-hold="chooseAction(chat.message)">
+          <div class="message" ng-class="chat.message.from === myidentity ? 'message-mine' : 'message-other'" ng-click="chooseAction(chat.message)">
           <img ng-src="{{chat.message.image}}" height="100px" width="auto" ng-if="chat.message.image.length"/>
           <div class="message-text" ng-if="chat.message.text.length" ng-bind-html="chat.message.text"></div>
             <span class="message-timestamp">{{chat.message.time | date: 'HH:mm'}}</span>
