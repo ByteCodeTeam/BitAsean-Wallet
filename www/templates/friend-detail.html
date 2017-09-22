@@ -13,11 +13,11 @@
     </ion-nav-buttons>
   </ion-nav-bar>
   <div class="bar bar-subheader bar-transparent">
+	<img class="rounded" ng-src="{{friend.icon}}">  
     <span class="item-avatar">
-      {{friend.addr | strLimit: 10 : 10}}
-      <img class="rounded" ng-src="{{friend.icon}}">    
+      {{friend.addr | strLimit: 10 : 10}} 
     </span>
-    <span class="item-note">{{friendBalance | currency:'Ξ ':6}}</span>
+    <!--span class="item-note">{{friendBalance | currency:'Ξ ':6}}</span-->
   </div>
   <ion-content class="has-header has-subheader has-footer has-chat-footer chat" delegate-handle="chatDMScroll">    
     <div class="message-list has-chat-header has-chat-footer">

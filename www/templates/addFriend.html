@@ -4,33 +4,39 @@
       <i class="icon ion-ios-close"></i>
     </button>
     <div class="h1 title">Friend {{name | strLimit: 5 : 5}}</div>
-    <button menu-toggle="right" class="button button-clear" on-touch="scanAddr()">
-      <i class="icon ion-ios-camera-outline"></i>
+    <button menu-toggle="right" class="button button-clear">
+      <i style="color:rgba(255, 255, 255, 0);" class="icon ion-ios-close"></i>
     </button>
   </ion-header-bar>
   <ion-scroll class="has-header" padding="'true'">
     <div class="list list-borderless">
-      <div class="item">
-        <form ng-submit="saveAddr(name,addr,idkey,comment)">
-          <label class="item item-input item-floating-label">
-            <span class="input-label">Name</span>
-            <input type="text" ng-model="name" placeholder="Name">
-          </label>
-          <label class="item item-input item-floating-label">
-            <span class="input-label">Wallet Address (scan QRCode)</span>
-            <input type="text" ng-model="addr" readonly placeholder="Wallet Address" ng-valid>            
-          </label>
-          <label class="item item-input item-floating-label">
-            <span class="input-label">Identity Address (scan QRCode)</span>
-            <input type="text" ng-model="idkey" readonly placeholder="Identity Address" ng-valid>            
-          </label>
-          <label class="item item-input item-floating-label">
-            <span class="input-label">Comment</span>
-            <input type="text" ng-model="comment" placeholder="Comment">
-          </label>          
-          <button class="button button-block button-energized" type="submit">Save</button>
-        </form>
-      </div>
+		<div class="item">
+		<form ng-submit="saveAddr(name,addr,idkey,comment)">
+		  <label class="item item-input item-floating-label">
+			<span class="input-label">Name</span>
+			<input type="text" ng-model="name" placeholder="Name">
+		  </label>
+		  <label class="item item-input item-floating-label">
+			<span class="input-label">Wallet Address (scan QRCode)</span>
+			<input type="text" ng-model="addr" readonly placeholder="Wallet Address" ng-valid>            
+		  </label>
+		  <label class="item item-input item-floating-label">
+			<span class="input-label">Identity Address (scan QRCode)</span>
+			<input type="text" ng-model="idkey" readonly placeholder="Identity Address" ng-valid>            
+		  </label>
+		  <label class="item item-input item-floating-label">
+			<span class="input-label">Comment</span>
+			<input type="text" ng-model="comment" placeholder="Comment">
+		  </label>          
+		  <button ng-disabled="!addr||!idkey" class="button button-block button-energized" type="submit">Save</button>
+		</form>
+		 <div style="text-align: center;">
+			<button class="button button-clear" on-touch="scanAddr()">
+				<i style="color:#5183F3; zoom:2.0;" class="icon ion-plus-circled addCustomIcon"></i>
+			</button> 
+		</div>
+		</div>
+		
     </div>
   </ion-scroll>
 </ion-modal-view>

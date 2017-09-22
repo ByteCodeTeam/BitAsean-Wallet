@@ -109,4 +109,5 @@
         <variable name="LOCATION_ALWAYS_USAGE_DESCRIPTION" value="My custom always usage message" />
     </plugin>
     <plugin name="cordova-plugin-camera" spec="~2.4.1" />
+    <plugin name="cordova-clipboard" spec="~1.0.0" />
 </widget>

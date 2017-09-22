@@ -10,7 +10,7 @@
   <ion-content class="has-header has-subheader has-tabs scrollBg">
   <ion-refresher pulling-txt="load" on-refresh="refresh()"></ion-refresher>
   <ion-list class="list" show-reorder="false" >
-    <div ng-show="friends.length == 0" class="text-center dark">No saved friends :-(</div>
+    <div ng-show="friends.length == 0" class="text-center dark">No saved friends</div>
     <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="friend in friends | orderBy: '-unread' | filter:search track by $index" type="item-text-wrap" href="#/tab/friends/{{friend.addr}}">
       <img ng-src="{{friend.icon}}"/>
       <h2><b>{{friend.name | strLimit: 15 : 5}}</b></h2>
