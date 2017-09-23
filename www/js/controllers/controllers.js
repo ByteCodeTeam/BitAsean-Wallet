@@ -23,8 +23,8 @@ angular.module('leth.controllers', [])
     AppService.getNetwork();
     $scope.getNetwork();
     $scope.loadFriends();
-    $scope.transactions = Transactions.all();
-    localStorage.Transactions = JSON.stringify($scope.transactions);
+    //$scope.transactions = Transactions.all();
+    //localStorage.Transactions = JSON.stringify($scope.transactions);
     //isNfcAvailable();
     //$scope.readCategoryList();
     //$scope.readDappsList();
@@ -1194,7 +1194,7 @@ angular.module('leth.controllers', [])
   $scope.msgCounter = 0;
   $scope.DMCounter = 0;
   $scope.DMchats = Chat.findDM(); 
-  $scope.DAPPchats = Chat.findDAPP(); 
+  //$scope.DAPPchats = Chat.findDAPP(); 
   $scope.chats = Chat.find(); 
 
   $scope.setBadge = function(value) {

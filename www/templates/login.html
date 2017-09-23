@@ -27,8 +27,8 @@
             <input type="password" ng-model="confirmPassword" name="confirmPassword" placeholder="enter password again" required="true" minlength="8" maxlength="20" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required>
           </label>
           <label class="item item-input padding-bottom">
-            <span class="input-label">Code</span>
-            <input type="password" ng-model="code" name="code" pattern="[0-9]*" maxlength="4" minlength="4" placeholder="4 digit code" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+            <span class="input-label">PIN</span>
+            <input type="password" ng-model="code" name="code" pattern="[0-9]*" maxlength="4" minlength="4" placeholder="4 digit PIN" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
           </label>
           <button ng-show="login.$valid && password==confirmPassword" class="button button-block button-energized" type="submit">
            <i class="icon ion-flag" ng-hide="!login.$valid || confirmPassword!=password"></i>&nbsp;Start

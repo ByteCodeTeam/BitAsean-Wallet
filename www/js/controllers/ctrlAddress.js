@@ -73,8 +73,8 @@ angular.module('leth.controllers')
           var emailOpts = {
             to: [''],
             attachments:[allegato],
-            subject: 'Please Pay me',
-            body: '<h3>Please send me ETH to this Wallet Address:</h3> <p><a href="ethereum://' + $scope.qrcodeString + '">ethereum://' + $scope.qrcodeString + '</a></p>',
+            subject: 'My wallet address',
+            body: '<h3>ETH[BitAsean] Wallet Address:</h3> <p><a href="ethereum://' + $scope.qrcodeString + '">ethereum://' + $scope.qrcodeString + '</a></p>',
             isHtml: true
           };
 

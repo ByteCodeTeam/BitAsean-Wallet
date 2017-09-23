@@ -566,7 +566,10 @@ bottom: 150;
     text-align: center;
 }
 
- 
+ .popup-body {
+  text-align: center !important;
+}
+
 /*
 .dapp-ion-scroll{
   height:150px;

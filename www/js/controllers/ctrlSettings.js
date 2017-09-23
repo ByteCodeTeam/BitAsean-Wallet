@@ -1,6 +1,6 @@
 angular.module('leth.controllers')
 .controller('SettingsCtrl', function ($scope, $interval, $ionicModal, $ionicLoading, $ionicPopup, $timeout,$cordovaEmailComposer, $ionicActionSheet, $cordovaFile, $http, 
-                                      Geolocation, AppService, ExchangeService, Chat, PasswordPopup) {    
+                                      Geolocation, AppService, ExchangeService, Chat, PasswordPopup, $cordovaClipboard) {    
   $scope.editableHost = false;
   $scope.addrHost = localStorage.NodeHost;
   $scope.hostsList= JSON.parse(localStorage.HostsList);
@@ -310,21 +310,61 @@ angular.module('leth.controllers')
   };
 
   var backupSeed = function(){
-    PasswordPopup.open("Digit your wallet password", "unlock account to proceed").then(
+    PasswordPopup.open("Enter your wallet <b>Password<b/> </br>[not PIN]", "unlock account to proceed").then(
       function (password) {
+		if(password == undefined){
+		  return;
+		}
         global_keystore.keyFromPassword(password, function (err, pwDerivedKey) {
-          var seed = global_keystore.getSeed(pwDerivedKey);
-          var alertPopup = $ionicPopup.alert({
-             title: 'Backup securely your seed',
-             template: seed
-          });
+			
+			if(pwDerivedKey != undefined){
+				var seed = global_keystore.getSeed(pwDerivedKey);
+				
+				var confirmPopup = $ionicPopup.confirm({
+					title: 'Backup securely your seed',
+					template: seed,
+					buttons: [{
+						text: '<i style="color: white;" class="button button-icon icon ion-ios-email-outline"></i>',
+						type: 'button-negative',
+						onTap: function (e) {
+							confirmPopup.close(); 
+							$scope.shareSeedByEmail(seed);  
+						}
+					}, {
+						text: '<i style="color: white;" class="button button-icon icon ion-ios-copy-outline"></i>',
+						type: 'button-negative',
+						onTap: function (e) {
+							confirmPopup.close(); 
+							$scope.copySeed(seed);
+						}
+					} , {
+						text: 'Close',
+						type: 'button-negative',
+						onTap: function (e) {
+							confirmPopup.close(); 
+						}
+					} 
+					]
+				});
+	
+				/*var alertPopup = $ionicPopup.alert({
+					title: 'Backup securely your seed',
+					template: seed
+				}); 
 
-          $ionicLoading.hide();
-
-          alertPopup.then(function(res) {    
-            console.log('seed backuped');
-          });
-        });
+				alertPopup.then(function(res) {    
+					console.log('seed backuped');
+				});*/
+			}else{
+				var alertPopup = $ionicPopup.alert({
+					title: 'An error occurred during backup',
+					template: 'Please check your password again'
+				});
+				
+			} 
+			$ionicLoading.hide();
+			
+		});
       },
       function (err) {
         $ionicLoading.hide();
@@ -332,20 +372,56 @@ angular.module('leth.controllers')
   }
 
   var backupPrivateKey = function(){
-    PasswordPopup.open("Digit your wallet password", "unlock account to proceed").then(
+    PasswordPopup.open("Enter your wallet <b>Password<b/> </br>[not PIN]", "unlock account to proceed").then(
       function (password) {
-        global_keystore.keyFromPassword(password, function (err, pwDerivedKey) {
-          var pvtKey = global_keystore.exportPrivateKey(AppService.account(), pwDerivedKey)
-          var alertPopup = $ionicPopup.alert({
-             title: 'Backup securely your private key',
-             template: pvtKey
-          });
-
-          $ionicLoading.hide();
-
-          alertPopup.then(function(res) {    
-            console.log('pvtKey backuped');
-          });
+		  
+		if(password == undefined){
+		  return;
+		}
+		
+        global_keystore.keyFromPassword(password, function (err, pwDerivedKey) { 
+			
+			if(pwDerivedKey != undefined){
+				
+				var pvtKey = global_keystore.exportPrivateKey(AppService.account(), pwDerivedKey)
+				var confirmPopup = $ionicPopup.confirm({
+					title: 'Backup securely your private key',
+					template: pvtKey,
+					buttons: [{
+						text: '<i style="color: white;" class="button button-icon icon ion-ios-email-outline"></i>',
+						type: 'button-negative',
+						onTap: function (e) {
+							confirmPopup.close(); 
+							$scope.sharePKeyByEmail(pvtKey);  
+						}
+					}, {
+						text: '<i style="color: white;" class="button button-icon icon ion-ios-copy-outline"></i>',
+						type: 'button-negative',
+						onTap: function (e) {
+							confirmPopup.close(); 
+							$scope.copyPrivatekey(pvtKey);
+						}
+					} , {
+						text: 'Close',
+						type: 'button-negative',
+						onTap: function (e) {
+							confirmPopup.close(); 
+						}
+					} 
+					]
+				});
+				
+				
+			 
+			}else{
+				var alertPopup = $ionicPopup.alert({
+					title: 'An error occurred during backup',
+					template: 'Please check your password again'
+				});
+				
+			} 
+			$ionicLoading.hide(); 
+         
         });
       },
       function (err) {
@@ -358,7 +434,7 @@ angular.module('leth.controllers')
 	  var hideSheet = $ionicActionSheet.show({
       buttons: [
         { text: 'Backup Seed' },
-        { text: 'Backup Keys' },
+        /*{ text: 'Backup Keys' },*/
         { text: 'Backup Private Key' }
         /*{ text: 'Backup on Storage'}*/
       ],
@@ -374,17 +450,17 @@ angular.module('leth.controllers')
               hideSheet();
               break;
           case 1:
-              walletViaEmail();
+              backupPrivateKey();
               hideSheet();
               break;
-          case 2:
-              backupPrivateKey();
+          /*case 2:
+              walletViaEmail();
               hideSheet();
               break;
           case 3:
               backupWalletToStorage();
               hideSheet();
-              break;
+              break;*/
 			  }
 		$timeout(function() {
 		 hideSheet();
@@ -395,7 +471,7 @@ angular.module('leth.controllers')
 
   var walletViaEmail = function(){
     //backup keys wallet via email 
-    PasswordPopup.open("Digit your wallet password", "unlock account to proceed").then(
+    PasswordPopup.open("Enter your wallet password [not PIN]", "unlock account to proceed").then(
       function (password) {
 
         document.addEventListener("deviceready", function () {
@@ -417,7 +493,7 @@ angular.module('leth.controllers')
                   to: [''],
                   attachments: ['' + directoryAttach + keystoreFilename],
                   subject: 'Backup LETH Wallet',
-                  body: 'A LETH backup wallet is attached.<br>powerd by Ethereum from <b>Inzhoop</b>',
+                  body: 'A LETH backup wallet is attached.<br>powerd by Ethereum from <b>BitAsean</b>',
                   isHtml: true
                 };
 
@@ -438,4 +514,102 @@ angular.module('leth.controllers')
 
     })  
   };
+  
+  
+  $scope.shareSeedByEmail = function(seed){
+      
+      document.addEventListener("deviceready", function () {
+        $cordovaEmailComposer.isAvailable().then(function() {
+         
+          var emailOpts = {
+            to: [''], 
+			attachments: [],
+            subject: 'My Backup Seed',
+            body: 'ETH wallet seed: <b>'+seed+'</b>',
+            isHtml: true
+          };
+
+          $cordovaEmailComposer.open(emailOpts).then(null, function () {
+            console.log('email view dismissed');
+          });
+
+          return;
+        }, function (error) {
+          console.log("cordovaEmailComposer not available");
+          return;
+        });
+      }, false);         
+    }
+
+    $scope.copySeed = function(seed){
+      document.addEventListener("deviceready", function () {  
+        $cordovaClipboard
+        .copy(seed)
+        .then(function () {
+          // success
+          //alert('Address in clipboard');
+          var alertPopup = $ionicPopup.alert({
+             title: 'Copy Seed',
+             template: 'Seed is in clipboard!'
+           });
+
+           alertPopup.then(function(res) {
+             console.log('Seed copied in clipboard');
+           });
+        }, function () {
+          // error
+          console.log('Copy error');
+        });
+      }, false);         
+    }
+	
+	
+	$scope.sharePKeyByEmail = function(privatekey){
+      
+      document.addEventListener("deviceready", function () {
+        $cordovaEmailComposer.isAvailable().then(function() {
+         
+          var emailOpts = {
+            to: [''], 
+			attachments: [],
+            subject: 'My private key',
+            body: 'ETH wallet private key: <b>'+privatekey+'</b>',
+            isHtml: true
+          };
+
+          $cordovaEmailComposer.open(emailOpts).then(null, function () {
+            console.log('email view dismissed');
+          });
+
+          return;
+        }, function (error) {
+          console.log("cordovaEmailComposer not available");
+          return;
+        });
+      }, false);         
+    }
+
+    $scope.copyPrivatekey= function(privatekey){
+      document.addEventListener("deviceready", function () {  
+        $cordovaClipboard
+        .copy(privatekey)
+        .then(function () {
+          // success
+          //alert('Address in clipboard');
+          var alertPopup = $ionicPopup.alert({
+             title: 'Copy private key',
+             template: 'Private key is in clipboard!'
+           });
+
+           alertPopup.then(function(res) {
+             console.log('Private key copied in clipboard');
+           });
+        }, function () {
+          // error
+          console.log('Copy error');
+        });
+      }, false);         
+    }
+	
+	
 })
