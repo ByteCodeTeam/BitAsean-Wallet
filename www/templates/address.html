@@ -1,5 +1,5 @@
-<ion-view view-title="Address" class="title">
-  <ion-content class="has-header has-tabs scrollBg" >
+<ion-view view-title="Address" class="title" ">
+  <ion-content style="background: white; class="has-header has-tabs scrollBg" >
     <div class="list list-borderless">
       <div class="item item-divider">
           <p class="text-center">
@@ -9,7 +9,7 @@
       <div class="item text-center" ng-click="copyAddr()">
         <qr text="qrcodeString" type-number="typeNumber" correction-level="correctionLevel" size="size" input-mode="inputMode" image="image"></qr>
       </div>
-      <div class="item item-input item-select">
+      <!--div class="item item-input item-select">
         <div class="input-label">
           Request payment
         </div>
@@ -17,12 +17,15 @@
         <select class="item-select padding" ng-model="unit" ng-required="true" ng-init="unit = options[0]">
           <option ng-repeat="uni in listUnit" value="{{uni.multiplier}}" ng-selected="$index==0">{{uni.unitName}}</option>
         </select>
-      </div>
-      <div class="item tabs row"> 
-          <div class="col col-10"></div>         
+      </div-->
+	  <div style="text-align: center; font-size: 15pt;padding-top: 30px; padding-bottom: 10px;"> 
+		<span  class="subdued ng-binding">Share Address</span>
+	  </div>
+      <div style="text-align: center;" class="item tabs row">          
           <div class="col col-30"><button class="button button-icon icon ion-ios-email-outline dark" ng-click="shareByEmail()"> email</button></div>
           <div class="col col-30"><button class="button button-icon icon ion-ios-chatbubble-outline dark" ng-click="shareBySms()"> sms</button></div>    
-          <div class="col col-30"><button class="button button-icon icon icon-chats dark" ng-click="openFriendsModal(amountPayment)"> chat</button></div>   
+          <!--div class="col col-30"><button class="button button-icon icon ion-ios-chatboxes-outline dark" ng-click="openFriendsModal(amountPayment)"> chat</button></div--> 
+		  <div class="col col-30"><button class="button button-icon icon ion-ios-copy-outline dark" ng-click="copyAddr()"> copy</button></div> 		  
       </div>
     </div>
     </div>

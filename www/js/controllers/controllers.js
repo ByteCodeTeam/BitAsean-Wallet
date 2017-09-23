@@ -220,7 +220,9 @@ angular.module('leth.controllers', [])
   };      
 
   $scope.shareByChat = function (friend,payment) {
-    Chat.sendCryptedPaymentReq("Please send me " + payment + " eth &#x1F4B8; !", payment, friend.addr,friend.idkey);
+    //Chat.sendCryptedPaymentReq("Please send me " + payment + " eth &#x1F4B8; !", payment, friend.addr,friend.idkey);
+    var contact = {type: 'leth', mode: 'contact', time: Date.now(), from: AppService.account(), to: [null], text: 'My addresses ' + '&#x1F464;' , image: '', attach: {addr: AppService.account(), idkey: AppService.idkey()} };
+	Chat.sendCryptedAddressMessage(friend.addr,friend.idkey);	
     $state.go('tab.friend', {Friend: friend.addr});
   };
 

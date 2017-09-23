@@ -105,7 +105,7 @@ angular.module('leth.controllers')
         buttons: [
           //{ text: '<i class="icon ion-ios-camera-outline"></i> Photo...' },
           //{ text: '<i class="icon ion-ios-location-outline"></i> Position'  },
-          { text: '<i class="icon ion-ios-person-outline"></i> Send my contact'  }
+          { text: '<i class="icon ion-ios-person-outline"></i> Send my address'  }
         ],
         destructiveText: (ionic.Platform.isAndroid()?'<i class="icon ion-android-exit assertive"></i> ':'')+'Cancel',
         //destructiveText: 'Cancel',

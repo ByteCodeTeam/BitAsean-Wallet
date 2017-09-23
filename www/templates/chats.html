@@ -3,10 +3,10 @@
    <tags-input ng-model="topicsList" placeholder="Add a topic" on-tag-added="addTopicFilter($tag)" on-tag-removed="removeTopicFilter($tag)">
    </tags-input>
   </ion-header-bar-->
-   <ion-content class="has-footer has-tabs chat" delegate-handle="chatScroll">
+   <ion-content class="has-footer has-tabs chat" >
    <div class="message-list">
       <div ng-repeat="chat in chats | orderBy:'message.time'"
-        class="message-wrapper">
+        class="message-wrapper" delegate-handle="chatScroll">
         <div ng-class="chat.message.from === myidentity ? 'bubble bubble-mine' : 'bubble bubble-other'">
             <img ng-click="chooseAction(chat.message)" ng-src="{{chat.identity}}" ng-class="chat.message.from === myidentity ? 'rounded image image-mine' : 'rounded image image-other'""> 
           <div class="message" ng-class="chat.message.from === myidentity ? 'message-mine' : 'message-other'" ng-click="chooseAction(chat.message)">
