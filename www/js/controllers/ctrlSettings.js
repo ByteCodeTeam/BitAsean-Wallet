@@ -522,8 +522,7 @@ angular.module('leth.controllers')
         $cordovaEmailComposer.isAvailable().then(function() {
          
           var emailOpts = {
-            to: [''], 
-			attachments: [],
+            to: [''],  
             subject: 'My Backup Seed',
             body: 'ETH wallet seed: <b>'+seed+'</b>',
             isHtml: true
@@ -570,8 +569,7 @@ angular.module('leth.controllers')
         $cordovaEmailComposer.isAvailable().then(function() {
          
           var emailOpts = {
-            to: [''], 
-			attachments: [],
+            to: [''],  
             subject: 'My private key',
             body: 'ETH wallet private key: <b>'+privatekey+'</b>',
             isHtml: true
