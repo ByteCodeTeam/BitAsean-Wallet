@@ -3,15 +3,21 @@ angular.module('leth.controllers')
                                       Friends, Chat, AppService, Geolocation) {    
 
     $scope.$on('$ionicView.enter', function() {
-      $scope.myidentity = AppService.account();
-      $scope.topicsList = Chat.listTopics();
+		$scope.myidentity = AppService.account();
+		$scope.topicsList = Chat.listTopics();
 
-      $scope.cancelAllNotifications();
-      $scope.clearBadge();
-      $scope.scrollTo('chatScroll','bottom');
-
-      $scope.$digest(); 
+		$scope.cancelAllNotifications();
+		$scope.clearBadge();
+		$scope.$digest(); 
+		
+		$scope.scrollTo('chatScroll','bottom');  
+		$ionicScrollDelegate.scrollBottom(true);
+			
+	 
+      
     })
+
+	 
 
     $scope.sendMessage = function(){
       if ($scope.text.message.length==0) {

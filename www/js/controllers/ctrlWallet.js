@@ -6,14 +6,22 @@ angular.module('leth.controllers')
 	
     var TrueException = {};
     var FalseException = {};
+	var activeCoins;
 	
+
 	$scope.addBitAseanToken = function(){
-		$scope.readCoinsList();
-		var activeCoins=$scope.listCoins.filter( function(obj) {return (obj.Network==$scope.nameNetwork) && (obj.Installed);} );
-		if(activeCoins[0] == undefined){
+		 
+		//var activeCoins=$scope.listCoins.filter( function(obj) {return (obj.Network==$scope.nameNetwork) && (obj.Installed);} );
+		//if(activeCoins == undefined || activeCoins[0] == undefined){
+			
+			var length = 0;
+			if($scope.listCoins != undefined){
+				length = $scope.listCoins.length+1;
+			} 
+			
 			var customToken = {
 			  "Name" : 'BitAsean',
-			  "GUID" : "C" + $scope.listCoins.length+1,
+			  "GUID" : "C" + length,
 			  "Network" : $scope.nameNetwork, 
 			  "Company" : 'BitAsean',
 			  "Logo" : 'img/logo.png',
@@ -28,20 +36,23 @@ angular.module('leth.controllers')
 			  "Custom" : true,
 			  "Installed" : true
 			}
+			if($scope.listCoins == undefined){
+				$scope.listCoins = [];
+			}
 			$scope.listCoins.push(customToken);
 			localStorage.Coins = JSON.stringify($scope.listCoins);
-		} 
+		//} 
 
     }
 
-    $scope.addBitAseanToken(); 
-	refresh();
+    //$scope.addBitAseanToken(); 
+	//refresh();
 	
     var setCoin = function(index){
       if(index==0){
         $scope.idCoin = 0;
         $scope.logoCoin = "img/ethereum-icon.png";
-        $scope.descCoin = "Eth from main wallet";
+        $scope.descCoin = "Ethereum";
         if($scope.nameNetwork=="Main-ETC"){
           $scope.symbolCoin = "ΞC";
           $scope.xCoin = "XETC";                  
@@ -49,21 +60,20 @@ angular.module('leth.controllers')
           $scope.symbolCoin = "Ξ";
           $scope.xCoin = "XETH";                  
         }
-        $scope.decimals = "6";
+        $scope.decimals = "9";
         $scope.listUnit = [
-    			{multiplier: "1.0e18", unitName: "ether"},
-    			{multiplier: "1.0e15", unitName: "finney"}
-          //,{multiplier: "1.0e12",unitName: "szabo"}
+    			{multiplier: "1.0e18", unitName: "Ether"},
+    			{multiplier: "1.0e9", unitName: "Gwei"}
+				//,{multiplier: "1.0e12",unitName: "szabo"}
     		];
         $scope.unit = $scope.listUnit[0].multiplier;
         $scope.balance = AppService.balance($scope.unit);
         if($scope.addrTo!=undefined)
           $scope.balAddrTo = parseFloat(web3.eth.getBalance($scope.addrTo))/$scope.unit;
         $scope.symbolFee = $scope.symbolCoin;   
-	  }
-      else {
+	  }else {
       	$scope.getNetwork();
-    	var activeCoins=$scope.listCoins.filter( function(obj) {return obj.Network==$scope.nameNetwork && obj.Installed ;} );
+    	//var activeCoins=$scope.listCoins.filter( function(obj) {return obj.Network==$scope.nameNetwork && obj.Installed ;} );
          
 		if(activeCoins[index-1].Symbol === 'BAS'){
 			$scope.logoCoin = 'img/logo.png'; 
@@ -100,32 +110,11 @@ angular.module('leth.controllers')
     };
 
     $scope.$on('$ionicView.enter', function() {
-      $rootScope.hideTabs = ''; //patch
-      if($scope.idCoin==0 || $scope.idCoin==undefined)    
-        $scope.balance = AppService.balance($scope.unit);
-      else
-        $scope.balance = AppService.balanceOf($scope.contractCoin,$scope.unit + 'e+' + $scope.decimals);
-    
-      $scope.minFee = 371007000000000;
-      $scope.maxFee = 11183211000000000;
-      $scope.step = 344506500000000;
-	  
-	  if($scope.fee == 0){
-		$scope.fee = 371007000000000;  
-	  }  
-
-      $scope.setFee($scope.fee); 
-      //updateExchange();
-	  $scope.addBitAseanToken();
-	  if(activeCoins[i].Symbol === undefined){
-		 refresh(); 
-	  }
+	 
 	  
     })
 
-    //set BAS for default
-    setCoin(1);
-
+  
     $scope.fromAddressBook = false;
 
     if($stateParams.addr){
@@ -138,10 +127,12 @@ angular.module('leth.controllers')
       $scope.addrKey = idkey;
       $scope.amountTo = parseFloat(coins);
       $scope.fromAddressBook = true;
-      if($scope.idCoin==0 || $scope.idCoin==undefined)
+	  
+      /*if($scope.idCoin==0 || $scope.idCoin==undefined)
         $scope.balAddrTo = parseFloat(web3.eth.getBalance($scope.addrTo))/$scope.unit;
       else
-        $scope.balAddrTo = AppService.balanceOfUser($scope.contractCoin,$scope.unit,$scope.addrTo);
+        $scope.balAddrTo = AppService.balanceOfUser($scope.contractCoin,$scope.unit,$scope.addrTo);*/
+	
     }else { 
       $scope.fromAddressBook = false;
     }
@@ -319,7 +310,7 @@ angular.module('leth.controllers')
 		  //$scope.getNetwork();
       var buttonsGroup = [{text: '<span style="text-align:left"><img width="30px" heigth="30px" src="img/ethereum-icon.png" style="vertical-align: middle !important;"/> Ether [ETH]</span>'}];
 
-	  var activeCoins=$scope.listCoins.filter( function(obj) {return (obj.Network==$scope.nameNetwork) && (obj.Installed);} );
+	  //var activeCoins=$scope.listCoins.filter( function(obj) {return (obj.Network==$scope.nameNetwork) && (obj.Installed);} );
       for (var i = 0; i < activeCoins.length; i++) {
 		var coinLogo;  
 		if(activeCoins[i].Symbol === 'BAS'){
@@ -362,6 +353,38 @@ angular.module('leth.controllers')
 		//$state.go('tab.transactions-etherscan');
     }
 	
+	$rootScope.hideTabs = ''; //patch
+	if($scope.idCoin==0 || $scope.idCoin==undefined)    
+		$scope.balance = AppService.balance($scope.unit);
+	else
+		$scope.balance = AppService.balanceOf($scope.contractCoin,$scope.unit + 'e+' + $scope.decimals);
+
+	$scope.minFee = 371007000000000;
+	$scope.maxFee = 11183211000000000;
+	$scope.step = 344506500000000;
+
+	if($scope.fee == 0){
+		$scope.fee = 371007000000000;  
+	}  
+
+	$scope.setFee($scope.fee); 
+	//updateExchange();
+
+	if(localStorage.Coins === undefined ||localStorage.Coins === null ){
+		$scope.addBitAseanToken();
+	}
+	if( $scope.listCoins == undefined ){
+		$scope.listCoins = JSON.parse(localStorage.Coins);
+	} 
+
+	if(activeCoins === undefined || activeCoins === null){
+		activeCoins = $scope.listCoins.filter( function(obj) {return (obj.Network==$scope.nameNetwork) && (obj.Installed);} );
+	} 
+
+	//set BAS for default
+	if($scope.idCoin === undefined || $scope.idCoin === null){
+		setCoin(1); 
+	} 
 
 
   })

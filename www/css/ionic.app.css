@@ -6352,8 +6352,7 @@ button.item.item-button-right {
     margin-top: 16px;
     margin-bottom: 16px; }
 
-.item-divider {
-  padding-top: 8px;
+.item-divider { 
   padding-bottom: 8px;
   min-height: 30px;
   background-color: #f5f5f5;

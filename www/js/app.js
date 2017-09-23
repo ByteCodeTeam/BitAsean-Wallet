@@ -61,7 +61,7 @@ var app = angular.module('leth', ['ionic', 'nfcFilters', 'ngTagsInput', 'angular
           //console.log("login successfully");
           $rootScope.hasLogged = true; 
           localStorage.HasLogged = $rootScope.hasLogged;
-		  $state.go('tab.address');
+		  $state.go('tab.wallet');
           //$location.path('/tab/address');
       } 
 

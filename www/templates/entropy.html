@@ -12,7 +12,7 @@
       <span class="item item-input">
         <textarea ng-model="restoreSeed"  rows="2" placeholder="insert seed passphrase from backup to restore an existing wallet"></textarea>
       </span>
-      <button class="button button-clear button-positive " ng-click="restoreLogin(restoreSeed)">Restore from seed</i></button>
+      <button ng-disabled="!restoreSeed" class="button button-clear button-positive " ng-click="restoreLogin(restoreSeed)">Restore from seed</i></button>
     </div> 
 
   </ion-content>

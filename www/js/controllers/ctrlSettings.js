@@ -4,7 +4,7 @@ angular.module('leth.controllers')
   $scope.editableHost = false;
   $scope.addrHost = localStorage.NodeHost;
   $scope.hostsList= JSON.parse(localStorage.HostsList);
-	$scope.indexHost = $scope.hostsList.indexOf($scope.addrHost);
+  $scope.indexHost = $scope.hostsList.indexOf($scope.addrHost);
   $scope.pin = { checked: (localStorage.PinOn=="true") };
   $scope.touch = { checked: (localStorage.TouchOn=="true") };
   $scope.geo = { checked: (localStorage.GeoOn=="true") };
