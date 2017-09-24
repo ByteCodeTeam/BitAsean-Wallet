@@ -210,7 +210,7 @@ angular.module('leth.services', [])
         var toAddr = to;
         var functionName = fname;
         var args = JSON.parse('[]');
-        var gasPrice = web3.eth.gasPrice;
+        var gasPrice = web3.eth.gasPrice; 
         var gas = web3.eth.estimateGas * gasPrice; //TODO: use estimate?
         try {
           args.push(params,{from: fromAddr, gasPrice: gasPrice, gas: gas});
@@ -323,7 +323,31 @@ angular.module('leth.services', [])
         var args = JSON.parse('[]');
         var gasPrice = web3.eth.gasPrice;
         var estimateGas = web3.eth.estimateGas({from: fromAddr, gasPrice: gasPrice, gas: gas});
-        var gas = estimateGas; //3000000; 
+        var gas = estimateGas;  
+		alert(gasPrice);
+        try {
+          args.push(toAddr,amount,{from: fromAddr, gasPrice: gasPrice, gas: gas});
+          var callback = function (err, hash) {
+            var result = new Array;
+            result.push(err);
+            result.push(hash);
+            resolve(result);
+          }
+          args.push(callback);
+          contract[functionName].apply(this, args);
+        } catch (e) {
+            reject(e);
+          }
+        });  
+    } ,
+    transferCoinGasPrice: function (contract, nameSend, from, to, amount,gasPrice,gas) {
+      return $q(function (resolve, reject) {
+        var fromAddr = from;
+        var toAddr = to;
+        var functionName = nameSend;
+        var args = JSON.parse('[]'); 
+		gasPrice =  gasPrice*1000000000;   // Gwei convert to wei
+		amount = amount*100000000; // convert jk to BAS
         try {
           args.push(toAddr,amount,{from: fromAddr, gasPrice: gasPrice, gas: gas});
           var callback = function (err, hash) {

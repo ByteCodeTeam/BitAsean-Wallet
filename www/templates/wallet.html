@@ -1,6 +1,6 @@
 <ion-view view-title="Wallet">
-  <ion-content class="has-header scrollBg" overflow-scroll="false" style="background: white;">
-    <ion-refresher pulling-txt="load" on-refresh="refresh()"></ion-refresher>
+  <ion-content class="has-header scrollBg" style="background: white;">
+    <ion-refresher pulling-txt="load" on-refresh="refreshBalance()"></ion-refresher>
     <div class="list">
       <ion-list class="list" can-swipe="true">
       <ion-item class="item item-divider item-avatar-left  item-icon-right item-avatar-right">
@@ -9,11 +9,12 @@
         <p>
           <label >{{descCoin}}</label>
         </p>
+		<button style="margin-right: 25px;" class="button button-icon icon ion-ios-list-outline dark" ng-click="listTransaction()"></button>
         <span><i class="icon ion-android-more-vertical" ng-click="chooseCoin()"></i>
         </span>
       </ion-item>
       </ion-list>
-      <div class="item">
+      <div class="item" >
         <div class="item item-input item-stacked-label item-icon-right">
           <span class="input-label">
             <label class="item-floating-label">Address To</label>
@@ -24,32 +25,36 @@
 				 
           </span>
           <!--span class="item-note">{{balAddrTo | currency:symbolCoin+' ':decimals}}</span-->
-          <i class="icon ion-ios-personadd-empty positive" ng-show="isFriend(addrTo)=='' && isValidAddr(addrTo)" ng-click="addAddress(addrTo,addrKey)"></i>
-          <input type="text" ng-model="addrTo" placeholder="Type address or use camera to scan" ng-required="true"/>
+          <!--i class="icon ion-ios-personadd-empty positive" ng-show="isFriend(addrTo)=='' && isValidAddr(addrTo)" ng-click="addAddress(addrTo,addrKey)"></i-->
+          <input type="text" ng-model="addrTo" placeholder="Type address or use camera to scan" ng-required="true"></input>
         </div>
         <div class="item item-input item-select">
-             <input type="number" pattern="-?\d+(\.\d+)?" ng-model="amountTo" placeholder="0.00">
-    			<select id="valuta" class="item-select padding" ng-model="unit" ng-init="unit" ng-change="unitChanged(unit)">
-    				<option ng-repeat="uni in listUnit" value="{{uni.multiplier}}" ng-selected="$index==0">{{uni.unitName}}</option>
-    			</select>
+			<span style="color:#444;padding-top:10px;padding-bottom:10px;" class="item-note">Amount </span>
+            <input style="padding-left:30px" type="number" pattern="-?\d+(\.\d+)?" ng-model="amountTo" placeholder="0.00">
+			<select id="valuta" class="item-select padding" ng-model="unit" ng-init="unit" ng-change="unitChanged(unit)">
+				<option ng-repeat="uni in listUnit" value="{{uni.multiplier}}" ng-selected="$index==0">{{uni.unitName}}</option>
+			</select>
         </div>
-        <div class="list">
-          <div class="item range range-positive">
+        <div style="padding: 6px 0 5px 16px !important;" class="item range range-positive item-input">
+          <!--div class="item range range-positive">
             <span class="item-note">fee {{feeLabel}} {{symbolFee}}</span>
             <input type="range" ng-model="fee"  min="{{minFee}}" max="{{maxFee}}" step="{{step}}" value="{{fee}}" ng-init="fee" ng-change="setFee(fee)">
-          </div>
+          </div-->  
+		   <ion-row style=" width: 100%;">
+		    <span style="width: 100%;color:#444;padding-top:10px;padding-bottom:10px;" class="item-note">Fee {{fee}} ETH</span>
+              
+			<span style="width: 100%;" class="item-note">Gas Price {{gasPrice}} Gwei</span>
+             
+			<input style="width: -webkit-fill-available;" type="range" ng-model="gasPrice"  min="{{minGasPrice}}" max="{{maxGasPrice}}" step="{{stepGasPrice}}" value="{{gasPrice}}" ng-change="setGasPrice(gasPrice)">
+          
+			<span style="width: 100%;" class="item-note">Gas Limit {{gasLimit}}</span>
+            <input style="width: -webkit-fill-available;" type="range" ng-model="gasLimit"  min="{{minGasLimit}}" max="{{maxGasLimit}}" step="{{stepGasLimit}}" value="{{gasLimit}}" ng-change="setGasLimit(gasLimit)">
+          </ion-row>
         </div>
-        <button ng-disabled="!unit || !amountTo>0 || !isValidAddr(addrTo)" class="button button-block button-energized" ng-click="confirmSend(addrTo,amountTo,unit,idCoin)"><i class="icon ion-paper-airplane"></i> Send 
-        </button>
+			<button ng-disabled="!unit || !amountTo>0 || !isValidAddr(addrTo)" class="button button-block button-energized" ng-click="confirmSend(addrTo,amountTo,unit,idCoin)"><i class="icon ion-paper-airplane"></i> Send 
+			</button>
         </div> 
-        <div class="item tabs row"> 
-          <div class="col col-10"></div>         
-          <div class="col col-30">
-            <button class="button button-icon icon ion-ios-list-outline dark"   ng-click="listTransaction()"> transactions</button>
-          </div>
-          <div class="col col-30"></div>    
-          <div class="col col-30"></div>   
-        </div>    
+         
     </div>
   </ion-content>
 </ion-view>

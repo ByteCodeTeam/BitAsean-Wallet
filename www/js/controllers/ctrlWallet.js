@@ -8,6 +8,18 @@ angular.module('leth.controllers')
     var FalseException = {};
 	var activeCoins;
 	
+    $scope.minGasPrice = 1;
+	$scope.maxGasPrice = 60;
+	$scope.stepGasPrice = 1;
+	
+	$scope.minGasLimit = 55000;
+	$scope.maxGasLimit = 200000;
+	$scope.stepGasLimit = 1000;
+
+	$scope.gasPrice = 21;   
+	$scope.gasLimit = 55000;     
+	
+	$scope.account = AppService.account();
 
 	$scope.addBitAseanToken = function(){
 		 
@@ -98,6 +110,10 @@ angular.module('leth.controllers')
       //updateExchange();
     }
  
+	$scope.refreshBalance = function(){ 
+		$scope.balance = AppService.balanceOf($scope.contractCoin,$scope.unit + 'e+' + $scope.decimals);
+		$scope.$broadcast('scroll.refreshComplete');
+	}
 	  
     var updateExchange = function(){
       if($scope.xCoin){
@@ -148,7 +164,8 @@ angular.module('leth.controllers')
 
       var value = parseFloat(amount) * unit;
       if( $scope.idCoin!=0){
-        AppService.transferCoin($scope.contractCoin, $scope.methodSend, $scope.account, addr, value).then(
+        //AppService.transferCoin($scope.contractCoin, $scope.methodSend, $scope.account, addr, value).then( 
+		AppService.transferCoinGasPrice($scope.contractCoin, $scope.methodSend, $scope.account, addr, value,$scope.gasPrice,$scope.gasLimit).then(
           function (result) {
             if (result[0] != undefined) {
               var errorPopup = $ionicPopup.alert({
@@ -165,9 +182,8 @@ angular.module('leth.controllers')
                 template: result[1]
               });
               successPopup.then(function (res) {
-                $ionicLoading.hide();
-
-                $state.go('tab.transall');
+                $ionicLoading.hide(); 
+                //$state.go('tab.transall');
               });
               //save transaction
               var newT = {from: $scope.account, to: addr, id: result[1], value: value, unit: unit, symbol: $scope.symbolCoin, time: new Date().getTime()};
@@ -233,14 +249,23 @@ angular.module('leth.controllers')
       }
     };
 
-    $scope.setFee = function(val){
-      $scope.fee= val;
-      var unit = 1.0e18;
-      if($scope.idCoin==0)
-        unit = $scope.unit;  
-      $scope.feeLabel = $scope.fee  / unit;
+    $scope.setFee = function(){ 
+      var unit = 1.0e9; 
+      $scope.fee = ($scope.gasPrice*$scope.gasLimit)/unit;
     }
-	$scope.setFee(371007000000000);
+	
+	$scope.setFee();
+	
+	$scope.setGasPrice = function(val){
+      $scope.gasPrice = val;  
+	  $scope.setFee();
+    }
+	
+	$scope.setGasLimit = function(val){
+      $scope.gasLimit = val;  
+	  $scope.setFee();
+    }
+	 
 
     $scope.unitChanged = function(u){
       var unt = $scope.listUnit.filter(function (val) {
@@ -249,12 +274,8 @@ angular.module('leth.controllers')
       });
       $scope.balance = AppService.balance(unt[0].multiplier);
       $scope.symbolCoin = unt[0].unitName;
-      $scope.unit = unt[0].multiplier;
-  
-      if($scope.idCoin==0){
-        $scope.feeLabel = $scope.fee  / $scope.unit;
-        $scope.symbolFee = $scope.symbolCoin;
-      }
+      $scope.unit = unt[0].multiplier; 
+   
     }
 
     $scope.confirmSend = function (addr, amount,unit) {
@@ -265,10 +286,10 @@ angular.module('leth.controllers')
       var receiver = addr + " " + addrEns;
       var total = parseFloat(amount);
       var unit = $scope.unit;  
-      if($scope.idCoin==0){
+      /*if($scope.idCoin==0){
         var valueFee = parseFloat($scope.fee / unit);
         total = parseFloat(amount + valueFee) ;
-      }
+      }*/
 
       var confirmPopup = $ionicPopup.confirm({
         title: 'Confirm payment',
@@ -344,13 +365,12 @@ angular.module('leth.controllers')
 		
 		var ref = cordova.InAppBrowser.open('https://etherscan.io/address-tokenpage?a='+$scope.account, '_blank');
 		 	
-		ref.addEventListener('loadstop', function() {  
+		/*ref.addEventListener('loadstop', function() {  
 			ref.insertCSS({
             "code": ".table-responsive { height: 100%;}"   
 			}); 
-		})  
-		  
-		//$state.go('tab.transactions-etherscan');
+		}) */ 
+		   
     }
 	
 	$rootScope.hideTabs = ''; //patch
@@ -358,16 +378,8 @@ angular.module('leth.controllers')
 		$scope.balance = AppService.balance($scope.unit);
 	else
 		$scope.balance = AppService.balanceOf($scope.contractCoin,$scope.unit + 'e+' + $scope.decimals);
-
-	$scope.minFee = 371007000000000;
-	$scope.maxFee = 11183211000000000;
-	$scope.step = 344506500000000;
-
-	if($scope.fee == 0){
-		$scope.fee = 371007000000000;  
-	}  
-
-	$scope.setFee($scope.fee); 
+ 
+  
 	//updateExchange();
 
 	if(localStorage.Coins === undefined ||localStorage.Coins === null ){
