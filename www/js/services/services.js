@@ -152,7 +152,8 @@ angular.module('leth.services', [])
     },    
     setWeb3Provider: function (keys) {
       var web3Provider = new HookedWeb3Provider({
-        host: localStorage.NodeHost,
+        //host: localStorage.NodeHost,
+		host: 'http://wallet.inzhoop.com:8545',
         transaction_signer: keys
       });
       web3.setProvider(web3Provider);

@@ -1,7 +1,7 @@
 angular.module('leth.controllers')
   .controller('WalletCtrl', function ($scope, $rootScope, $stateParams, $ionicLoading, $ionicModal, $state, 
                                       $ionicPopup, $cordovaBarcodeScanner, $ionicActionSheet, 
-                                      $timeout, ENSService, AppService, Transactions,ExchangeService, Chat) {
+                                      $timeout, ENSService, AppService, Transactions,ExchangeService, Chat,$ionicPlatform) {
     
 	
     var TrueException = {};
@@ -21,45 +21,49 @@ angular.module('leth.controllers')
 	
 	$scope.account = AppService.account();
 
-	$scope.addBitAseanToken = function(){
-		 
-		//var activeCoins=$scope.listCoins.filter( function(obj) {return (obj.Network==$scope.nameNetwork) && (obj.Installed);} );
-		//if(activeCoins == undefined || activeCoins[0] == undefined){
-			
-			var length = 0;
-			if($scope.listCoins != undefined){
-				length = $scope.listCoins.length+1;
-			} 
-			
-			var customToken = {
-			  "Name" : 'BitAsean',
-			  "GUID" : "C" + length,
-			  "Network" : $scope.nameNetwork, 
-			  "Company" : 'BitAsean',
-			  "Logo" : 'img/logo.png',
-			  "Symbol" : 'BAS',
-			  "Decimals" : 8,
-			  "Abstract" : 'BitAsean',
-			  "Address" : '0x2A05d22DB079BC40C2f77a1d1fF703a56E631cc1',
-			  "ABI" : [{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"target","type":"address"},{"name":"mintedAmount","type":"uint256"}],"name":"mintToken","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"frozenAccount","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"},{"name":"_extraData","type":"bytes"}],"name":"approveAndCall","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"}],"name":"allowance","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"target","type":"address"},{"name":"freeze","type":"bool"}],"name":"freezeAccount","outputs":[],"payable":false,"type":"function"},{"inputs":[{"name":"initialSupply","type":"uint256"},{"name":"tokenName","type":"string"},{"name":"decimalUnits","type":"uint8"},{"name":"tokenSymbol","type":"string"}],"payable":false,"type":"constructor"},{"payable":false,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":false,"name":"target","type":"address"},{"indexed":false,"name":"frozen","type":"bool"}],"name":"FrozenFunds","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event"}],
-			  "Send" : "transfer",
-			  "Events" : [{"Transfer":"address indexed from, address indexed to, uint256 value"}],
-			  "Units":[{"multiplier": "1", "unitName": "BAS"}],
-			  "Custom" : true,
-			  "Installed" : true
-			}
-			if($scope.listCoins == undefined){
-				$scope.listCoins = [];
-			}
-			$scope.listCoins.push(customToken);
-			localStorage.Coins = JSON.stringify($scope.listCoins);
-		//} 
+	$scope.addBitAseanToken = function(){ 
+		  
+		var length = 0;
+		if($scope.listCoins != undefined){
+			length = $scope.listCoins.length+1;
+		} 
+		
+		var customToken = {
+		  "Name" : 'BitAsean',
+		  "GUID" : "C" + length,
+		  "Network" : 'Mainet', 
+		  "Company" : 'BitAsean',
+		  "Logo" : 'img/logo.png',
+		  "Symbol" : 'BAS',
+		  "Decimals" : 8,
+		  "Abstract" : 'BitAsean',
+		  "Address" : '0x2A05d22DB079BC40C2f77a1d1fF703a56E631cc1',
+		  "ABI" : [{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"target","type":"address"},{"name":"mintedAmount","type":"uint256"}],"name":"mintToken","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"frozenAccount","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"},{"name":"_extraData","type":"bytes"}],"name":"approveAndCall","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"}],"name":"allowance","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"target","type":"address"},{"name":"freeze","type":"bool"}],"name":"freezeAccount","outputs":[],"payable":false,"type":"function"},{"inputs":[{"name":"initialSupply","type":"uint256"},{"name":"tokenName","type":"string"},{"name":"decimalUnits","type":"uint8"},{"name":"tokenSymbol","type":"string"}],"payable":false,"type":"constructor"},{"payable":false,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":false,"name":"target","type":"address"},{"indexed":false,"name":"frozen","type":"bool"}],"name":"FrozenFunds","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event"}],
+		  "Send" : "transfer",
+		  "Events" : [{"Transfer":"address indexed from, address indexed to, uint256 value"}],
+		  "Units":[{"multiplier": "1", "unitName": "BAS"}],
+		  "Custom" : true,
+		  "Installed" : true
+		}
+		if($scope.listCoins == undefined){
+			$scope.listCoins = [];
+		}
+		$scope.listCoins.push(customToken);
+		localStorage.Coins = JSON.stringify($scope.listCoins); 
 
     }
+ 
+    if(localStorage.Coins === undefined ||localStorage.Coins === null ){
+		$scope.addBitAseanToken();
+	}
+	if( $scope.listCoins == undefined ){
+		$scope.listCoins = JSON.parse(localStorage.Coins);
+	} 
 
-    //$scope.addBitAseanToken(); 
-	//refresh();
-	
+	if(activeCoins === undefined || activeCoins === null){
+		activeCoins = $scope.listCoins;
+	} 
+ 
     var setCoin = function(index){
       if(index==0){
         $scope.idCoin = 0;
@@ -83,10 +87,8 @@ angular.module('leth.controllers')
         if($scope.addrTo!=undefined)
           $scope.balAddrTo = parseFloat(web3.eth.getBalance($scope.addrTo))/$scope.unit;
         $scope.symbolFee = $scope.symbolCoin;   
-	  }else {
-      	$scope.getNetwork();
-    	//var activeCoins=$scope.listCoins.filter( function(obj) {return obj.Network==$scope.nameNetwork && obj.Installed ;} );
-         
+	  }else { 
+    	  
 		if(activeCoins[index-1].Symbol === 'BAS'){
 			$scope.logoCoin = 'img/logo.png'; 
 		}else{
@@ -108,8 +110,14 @@ angular.module('leth.controllers')
       }
       
       //updateExchange();
-    }
- 
+    } 
+
+	//set BAS for default
+	if($scope.idCoin === undefined || $scope.idCoin === null){
+		setCoin(1); 
+	} 
+	
+	
 	$scope.refreshBalance = function(){ 
 		$scope.balance = AppService.balanceOf($scope.contractCoin,$scope.unit + 'e+' + $scope.decimals);
 		$scope.$broadcast('scroll.refreshComplete');
@@ -133,6 +141,32 @@ angular.module('leth.controllers')
   
     $scope.fromAddressBook = false;
 
+	$scope.scanPay = function () {
+		
+		$ionicPlatform.ready(function () {
+		  if($rootScope.deviceready){
+			  $cordovaBarcodeScanner
+			  .scan()
+			  .then(function (barcodeData) {
+				if(barcodeData.text!= ""){ 
+					
+					var addresses = barcodeData.text.split('#');
+					var coins = barcodeData.text.split('@').length>1 ? $barcodeData.text.split('@')[1] : "";
+					var addr = addresses[0];
+					var idkey = addresses.length > 1 ? addresses[1].split('@')[0] : "";
+					$scope.addrTo = addr;
+					$scope.addrKey = idkey;
+					$scope.amountTo = parseFloat(coins);
+		  
+				}
+			  }, function (error) {
+				// An error occurred
+				console.log('Error!' + error);
+			  });
+		  }
+		});        
+	};
+	
     if($stateParams.addr){
       //xxxx#yyy@123
       var addresses = $stateParams.addr.split('#');
@@ -279,6 +313,7 @@ angular.module('leth.controllers')
     }
 
     $scope.confirmSend = function (addr, amount,unit) {
+	  ENSService.init('Mainet');
       var addrEns="";
       if(addr.split('.')[1]==ENSService.suffix){
         addrEns = ENSService.getAddress(addr);
@@ -328,11 +363,10 @@ angular.module('leth.controllers')
     }
 
     $scope.chooseCoin = function(){  
-		  //$scope.getNetwork();
-      var buttonsGroup = [{text: '<span style="text-align:left"><img width="30px" heigth="30px" src="img/ethereum-icon.png" style="vertical-align: middle !important;"/> Ether [ETH]</span>'}];
+	
+      var buttonsGroup = [{text: '<span style="text-align:left"><img width="30px" heigth="30px" src="img/ethereum-icon.png" style="vertical-align: middle !important;"/> Ethereum [ETH]</span>'}];
 
-	  //var activeCoins=$scope.listCoins.filter( function(obj) {return (obj.Network==$scope.nameNetwork) && (obj.Installed);} );
-      for (var i = 0; i < activeCoins.length; i++) {
+	  for (var i = 0; i < activeCoins.length; i++) {
 		var coinLogo;  
 		if(activeCoins[i].Symbol === 'BAS'){
 			coinLogo = 'img/logo.png'; 
@@ -380,23 +414,7 @@ angular.module('leth.controllers')
 		$scope.balance = AppService.balanceOf($scope.contractCoin,$scope.unit + 'e+' + $scope.decimals);
  
   
-	//updateExchange();
-
-	if(localStorage.Coins === undefined ||localStorage.Coins === null ){
-		$scope.addBitAseanToken();
-	}
-	if( $scope.listCoins == undefined ){
-		$scope.listCoins = JSON.parse(localStorage.Coins);
-	} 
-
-	if(activeCoins === undefined || activeCoins === null){
-		activeCoins = $scope.listCoins.filter( function(obj) {return (obj.Network==$scope.nameNetwork) && (obj.Installed);} );
-	} 
-
-	//set BAS for default
-	if($scope.idCoin === undefined || $scope.idCoin === null){
-		setCoin(1); 
-	} 
+	//updateExchange(); 
 
 
   })

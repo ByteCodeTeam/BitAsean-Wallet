@@ -26,7 +26,7 @@ var app = angular.module('leth', ['ionic', 'nfcFilters', 'ngTagsInput', 'angular
       if (typeof localStorage.Transactions == 'undefined') {localStorage.Transactions = '[]';}
       if (typeof localStorage.Coins == 'undefined') {localStorage.Coins = '[]';}
       if (typeof localStorage.NodeHost == 'undefined') {
-        localStorage.NodeHost = "http://wallet.inzhoop.com:8545";
+        localStorage.NodeHost = "https://api.myetherapi.com/eth";
       }  
 	  
       if (typeof localStorage.HostsList == 'undefined') {

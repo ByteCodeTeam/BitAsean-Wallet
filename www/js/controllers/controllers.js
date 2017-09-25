@@ -293,8 +293,8 @@ angular.module('leth.controllers', [])
     });
   };
   $scope.chooseFriend = function (friend) {
-    if($ionicHistory.currentTitle()=="Wallet"){
-     $scope.addrTo = friend.addr;
+    if($ionicHistory.currentTitle()=="Wallet"){ 
+		$scope.addrTo = friend.addr;
     }
     if($ionicHistory.currentTitle()=="Address")
       $scope.shareByChat(friend, $scope.param);
@@ -531,6 +531,7 @@ angular.module('leth.controllers', [])
           .scan()
           .then(function (barcodeData) {
             if(barcodeData.text!= ""){
+			   
               $state.go('tab.wallet', {addr: barcodeData.text});
               console.log('read code: ' + barcodeData.text);
             }
