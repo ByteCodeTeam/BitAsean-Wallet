@@ -19,14 +19,14 @@
           <span class="input-label">
             <label class="item-floating-label">Address To</label>
             <label class="item-floating-label">{{ENSResolved | strLimit: 5 : 5}}</label>
-            <label class="item-floating-label" ng-show="isFriend(addrTo)">{{isFriend(addrTo) | strLimit: 5 : 5}}</label> 
+            <label class="item-floating-label" ng-show="isFriend(payTo.addrTo)">{{isFriend(payTo.addrTo) | strLimit: 5 : 5}}</label> 
 			<i class="icon ion-ios-person-outline positive" style="margin-right: 40px;" ng-click="openFriendsModal()"></i> 
 			<i class="icon ion-ios-camera-outline positive" ng-click="scanPay()"></i> 
 				 
           </span>
           <!--span class="item-note">{{balAddrTo | currency:symbolCoin+' ':decimals}}</span-->
           <!--i class="icon ion-ios-personadd-empty positive" ng-show="isFriend(addrTo)=='' && isValidAddr(addrTo)" ng-click="addAddress(addrTo,addrKey)"></i-->
-          <input type="text" ng-model="addrTo" placeholder="Type address or use camera to scan" ng-required="true"></input>
+          <input type="text" ng-model="payTo.addrTo" placeholder="Type address or use camera to scan" ng-required="true"></input>
         </div>
         <div class="item item-input item-select">
 			<span style="color:#444;padding-top:10px;padding-bottom:10px;" class="item-note">Amount </span>
@@ -51,7 +51,7 @@
             <input style="width: -webkit-fill-available;" type="range" ng-model="gasLimit"  min="{{minGasLimit}}" max="{{maxGasLimit}}" step="{{stepGasLimit}}" value="{{gasLimit}}" ng-change="setGasLimit(gasLimit)">
           </ion-row>
         </div>
-			<button ng-disabled="!unit || !amountTo>0 || !addrTo" class="button button-block button-energized" ng-click="confirmSend(addrTo,amountTo,unit,idCoin)"><i class="icon ion-paper-airplane"></i> Send 
+			<button ng-disabled="!unit || !amountTo>0 || !payTo.addrTo" class="button button-block button-energized" ng-click="confirmSend(payTo.addrTo,amountTo,unit,idCoin)"><i class="icon ion-paper-airplane"></i> Send 
 			</button>
         </div> 
          

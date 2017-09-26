@@ -6,6 +6,8 @@ angular.module('leth.controllers', [])
                                 $cordovaBadge,$ionicScrollDelegate, $ionicListDelegate, $cordovaClipboard, $cordovaVibration,
                                 UIService, ENSService, AppService, Chat, PasswordPopup, Transactions, Friends, ExchangeService, Geolocation, nfcService, SwarmService) {
 
+	$scope.payTo = {};
+								
   window.refresh = function () {
     //$ionicLoading.show();
     
@@ -293,8 +295,9 @@ angular.module('leth.controllers', [])
     });
   };
   $scope.chooseFriend = function (friend) {
-    if($ionicHistory.currentTitle()=="Wallet"){ 
-		$scope.addrTo = friend.addr;
+    if($ionicHistory.currentTitle()=="Wallet"){  
+		$scope.payTo.addrTo = friend.addr; 
+		//$scope.addrTo = friend.addr; 
     }
     if($ionicHistory.currentTitle()=="Address")
       $scope.shareByChat(friend, $scope.param);

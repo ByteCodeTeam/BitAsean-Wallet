@@ -14,6 +14,7 @@ var app = angular.module('leth', ['ionic', 'nfcFilters', 'ngTagsInput', 'angular
   .run(function ($ionicPlatform, $rootScope, $ionicLoading, $ionicScrollDelegate,
                 $lockScreen,$state,$window, $location) {
     $ionicPlatform.ready(function () {
+	   
       //Start Settings
       if (typeof localStorage.NfcOn == 'undefined') {localStorage.NfcOn="false";}
       if (typeof localStorage.Vibration == 'undefined') {localStorage.Vibration="false";}

@@ -84,8 +84,8 @@ angular.module('leth.controllers')
     		];
         $scope.unit = $scope.listUnit[0].multiplier;
         $scope.balance = AppService.balance($scope.unit);
-        if($scope.addrTo!=undefined)
-          $scope.balAddrTo = parseFloat(web3.eth.getBalance($scope.addrTo))/$scope.unit;
+        //if($scope.addrTo!=undefined)
+        //  $scope.balAddrTo = parseFloat(web3.eth.getBalance($scope.addrTo))/$scope.unit;
         $scope.symbolFee = $scope.symbolCoin;   
 	  }else { 
     	  
@@ -104,8 +104,8 @@ angular.module('leth.controllers')
     	$scope.listUnit = activeCoins[index-1].Units;
         $scope.unit = $scope.listUnit[0].multiplier;
         $scope.balance = AppService.balanceOf($scope.contractCoin,$scope.unit + 'e+' + $scope.decimals);
-        if($scope.addrTo!=undefined)
-          $scope.balAddrTo = AppService.balanceOfUser($scope.contractCoin,$scope.unit + 'e+' + $scope.decimals,$scope.addrTo);
+        //if($scope.addrTo!=undefined)
+        //  $scope.balAddrTo = AppService.balanceOfUser($scope.contractCoin,$scope.unit + 'e+' + $scope.decimals,$scope.addrTo);
 
       }
       
@@ -154,7 +154,9 @@ angular.module('leth.controllers')
 					var coins = barcodeData.text.split('@').length>1 ? $barcodeData.text.split('@')[1] : "";
 					var addr = addresses[0];
 					var idkey = addresses.length > 1 ? addresses[1].split('@')[0] : "";
-					$scope.addrTo = addr;
+					//$scope.payTo = {};  
+					$scope.payTo.addrTo = addr; 
+					//$scope.addrTo = addr;
 					$scope.addrKey = idkey;
 					$scope.amountTo = parseFloat(coins);
 		  
@@ -173,7 +175,8 @@ angular.module('leth.controllers')
       var coins = $stateParams.addr.split('@').length>1 ? $stateParams.addr.split('@')[1] : "";
       var addr = addresses[0];
       var idkey = addresses.length > 1 ? addresses[1].split('@')[0] : "";
-      $scope.addrTo = addr;
+	  $scope.payTo = {};
+      $scope.payTo.addrTo = addr;
       $scope.addrKey = idkey;
       $scope.amountTo = parseFloat(coins);
       $scope.fromAddressBook = true;
