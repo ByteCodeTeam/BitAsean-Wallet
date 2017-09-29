@@ -122,7 +122,7 @@ angular.module('leth.controllers')
         buttonClicked: function(index) {
           switch(index){
             case 0:
-                $scope.getImage();
+                Chat.sendContact();
                 break;
             case 1:
                 Geolocation.getCurrentPosition()
@@ -134,7 +134,7 @@ angular.module('leth.controllers')
                     });
                 break;
             case 2:
-                Chat.sendContact();
+                $scope.getImage();
                 break;
           }
           hideSheet();

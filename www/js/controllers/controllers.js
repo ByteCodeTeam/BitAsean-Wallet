@@ -87,13 +87,16 @@ angular.module('leth.controllers', [])
     $scope.chats = Chat.find();
   }
 
+  window.resetChatFilter = function(){
+     //stop listening shh
+     //Chat.unlistenMessage();
+     //Flush chat messages
+     flushChats();
+   }
+ 
   window.setChatFilter = function(){
-    //stop listening shh
-    Chat.unlistenMessage();
-    //Flush chat messages
-    flushChats();
-    //start listening message shh
-    Chat.listenMessage($scope);
+     //start listening message shh
+     Chat.listenMessage($scope);
   }
 
   $scope.loadFriends = function(){

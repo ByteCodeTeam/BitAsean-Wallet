@@ -2,7 +2,7 @@ angular.module('leth.controllers')
   .controller('WalletCtrl', function ($scope, $rootScope, $stateParams, $ionicLoading, $ionicModal, $state, 
                                       $ionicPopup, $cordovaBarcodeScanner, $ionicActionSheet, 
                                       $timeout, ENSService, AppService, Transactions,ExchangeService, Chat,$ionicPlatform) {
-    
+
 	
     var TrueException = {};
     var FalseException = {};
@@ -204,13 +204,14 @@ angular.module('leth.controllers')
         //AppService.transferCoin($scope.contractCoin, $scope.methodSend, $scope.account, addr, value).then( 
 		AppService.transferCoinGasPrice($scope.contractCoin, $scope.methodSend, $scope.account, addr, value,$scope.gasPrice,$scope.gasLimit).then(
           function (result) {
+			$ionicLoading.hide();
             if (result[0] != undefined) {
               var errorPopup = $ionicPopup.alert({
                 title: 'Error',
                 template: result[0]
               });
               errorPopup.then(function (res) {
-                $ionicLoading.hide();
+                
                 console.log(res);
               });
             } else {
@@ -218,8 +219,7 @@ angular.module('leth.controllers')
                 title: 'Transaction sent',
                 template: result[1]
               });
-              successPopup.then(function (res) {
-                $ionicLoading.hide(); 
+              successPopup.then(function (res) { 
                 //$state.go('tab.transall');
               });
               //save transaction
@@ -245,7 +245,13 @@ angular.module('leth.controllers')
       else{
         AppService.transferEth($scope.account, addr, value, $scope.fee).then(
           function (result) {
-            $ionicLoading.show({template: 'Sending...'});
+            //$ionicLoading.show({template: 'Sending...'});
+			$ionicLoading.show({
+			  duration: 3000,
+			  noBackdrop: true,
+			  template: '<ion-spinner icon="lines" class="spinner-calm"></ion-spinner>'
+			});
+	
             if (result[0] != undefined) {
               var errorPopup = $ionicPopup.alert({
                 title: 'Error',

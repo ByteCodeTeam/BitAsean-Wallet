@@ -569,34 +569,15 @@ bottom: 150;
  .popup-body {
   text-align: center !important;
 }
+ .spinner-calm {
+   stroke: #8D52F3 !important; 
+}
+
+.loading-container .loading {
+    background-color: white;
+    color: #333;
+    border-width: 1px !important;
+    border-color: #F2F2F2 !important; 
+}
+
  
-
-/*
-.dapp-ion-scroll{
-  height:150px;
-  width:100%;
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-}
-
-.categoryContainer{
-  width: 3020px;
-}
-.cardDapp{
-  display: inline-block !important;
-  font-size: 0.8em;
-  height: 120px;
-  margin: 5px;
-  text-align: left;
-  text-decoration: none;
-  text-shadow: none;
-  width: 280px;
-  border:none;
-}
-.cardDapp:nth-child(2n+2) {
-  color: #fff;
-}
-.cardDapp:first-child{
-  margin-left: 10px;
-}
-*/
