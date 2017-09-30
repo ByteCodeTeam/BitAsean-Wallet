@@ -11,13 +11,9 @@ angular.module('leth.controllers')
 		$scope.$digest(); 
 		
 		$scope.scrollTo('chatScroll','bottom');  
-		$ionicScrollDelegate.scrollBottom(true);
-			
-	 
+		$ionicScrollDelegate.scrollBottom(true); 
       
-    })
-
-	 
+    }) 
 
     $scope.sendMessage = function(){
       if ($scope.text.message.length==0) {

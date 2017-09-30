@@ -99,7 +99,6 @@
     <plugin name="de.appplant.cordova.plugin.local-notification" spec="https://github.com/katzer/cordova-plugin-local-notifications.git" />
     <plugin name="phonegap-nfc" spec="~0.6.6" />
     <plugin name="phonegap-plugin-barcodescanner" spec="https://github.com/wildabeast/BarcodeScanner.git" />
-    <engine name="android" spec="~6.1.2" />
     <plugin name="cordova-plugin-device-motion" spec="~1.2.5" />
     <plugin name="cordova-plugin-inappbrowser" spec="~1.7.1" />
     <plugin name="cordova-plugin-splashscreen" spec="~4.0.3" />
@@ -114,4 +113,5 @@
     <plugin name="cordova-plugin-camera" spec="~2.4.1" />
     <plugin name="cordova-clipboard" spec="~1.0.0" />
     <plugin name="cordova-plugin-contacts" spec="~2.3.1" />
+    <engine name="android" spec="~6.1.2" />
 </widget>
