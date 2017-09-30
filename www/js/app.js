@@ -12,9 +12,9 @@ var app = angular.module('leth', ['ionic', 'nfcFilters', 'ngTagsInput', 'angular
     url: StorePath
   })
   .run(function ($ionicPlatform, $rootScope, $ionicLoading, $ionicScrollDelegate,
-                $lockScreen,$state,$window, $location) {
-    $ionicPlatform.ready(function () {
-	   
+                $lockScreen,$state,$window, $location, $cordovaSplashscreen,$timeout) {
+    $ionicPlatform.ready(function () { 
+
       //Start Settings
       if (typeof localStorage.NfcOn == 'undefined') {localStorage.NfcOn="false";}
       if (typeof localStorage.Vibration == 'undefined') {localStorage.Vibration="false";}
@@ -71,11 +71,9 @@ var app = angular.module('leth', ['ionic', 'nfcFilters', 'ngTagsInput', 'angular
         //window.addEventListener('native.keyboardshow', keyboardShowHandler);     
       }
       if (window.StatusBar) {
-        StatusBar.styleLightContent();
-        //StatusBar.styleBlackOpaque()
-        //StatusBar.styleBlackTranslucent();
+        StatusBar.styleLightContent(); 
       }
-      
+       
       $rootScope.$on('loading:show', function () {
         $ionicLoading.show({
          template: 'Loading...'
@@ -96,7 +94,11 @@ var app = angular.module('leth', ['ionic', 'nfcFilters', 'ngTagsInput', 'angular
       document.addEventListener("deviceready", function () {  
           $rootScope.deviceready = true;  
       }, false);     
-
+		
+	$timeout(function () {
+		$cordovaSplashscreen.hide();
+	}, 1000);
+	 
     });
   })
   .config(function ($ionicConfigProvider, $stateProvider, $urlRouterProvider) {
