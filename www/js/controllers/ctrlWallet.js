@@ -1,8 +1,8 @@
 angular.module('leth.controllers')
   .controller('WalletCtrl', function ($scope, $rootScope, $stateParams, $ionicLoading, $ionicModal, $state, 
                                       $ionicPopup, $cordovaBarcodeScanner, $ionicActionSheet, 
-                                      $timeout, ENSService, AppService, Transactions,ExchangeService, Chat,$ionicPlatform) {
-
+                                      $timeout, ENSService, AppService, Transactions,ExchangeService, Chat,$ionicPlatform,$cordovaSplashscreen) {
+ 
 	
     var TrueException = {};
     var FalseException = {};
@@ -119,8 +119,14 @@ angular.module('leth.controllers')
 	
 	
 	$scope.refreshBalance = function(){ 
-		$scope.balance = AppService.balanceOf($scope.contractCoin,$scope.unit + 'e+' + $scope.decimals);
+	
+		if($scope.idCoin == 0 || $scope.idCoin === undefined)  //buggy from wallet refresh  
+			$scope.balance = AppService.balance($scope.unit);
+		else
+			$scope.balance = AppService.balanceOf($scope.contractCoin,$scope.unit + 'e+' + $scope.decimals); 
+		
 		$scope.$broadcast('scroll.refreshComplete');
+		
 	}
 	  
     var updateExchange = function(){
@@ -406,8 +412,12 @@ angular.module('leth.controllers')
 
     $scope.listTransaction = function(){
 		
-		var ref = cordova.InAppBrowser.open('https://etherscan.io/address-tokenpage?a='+$scope.account, '_blank');
-		 	
+		if($scope.idCoin != 0){
+			var ref = cordova.InAppBrowser.open('https://etherscan.io/address-tokenpage?a='+$scope.account, '_blank');
+		}else{
+			var ref = cordova.InAppBrowser.open('https://etherscan.io/address/'+$scope.account, '_blank'); 
+		} 
+			
 		/*ref.addEventListener('loadstop', function() {  
 			ref.insertCSS({
             "code": ".table-responsive { height: 100%;}"   
@@ -422,8 +432,6 @@ angular.module('leth.controllers')
 	else
 		$scope.balance = AppService.balanceOf($scope.contractCoin,$scope.unit + 'e+' + $scope.decimals);
  
-  
-	//updateExchange(); 
-
+   
 
   })
