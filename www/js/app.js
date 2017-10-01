@@ -37,7 +37,8 @@ var app = angular.module('leth', ['ionic', 'nfcFilters', 'ngTagsInput', 'angular
 	    if(localStorage.PinOn=="true"){
     		$lockScreen.show({
     			code: JSON.parse(localStorage.AppCode).code,
-                touchId: JSON.parse(localStorage.TouchOn),
+				passcodeLabel: "Enter PIN",
+                touchId: true, //JSON.parse(localStorage.TouchOn),
 			    textColor:   "#595A5B",
 				backgroundColor:  "#FFFFFF",
                 buttonColor:  "#4F87F7",
@@ -47,7 +48,7 @@ var app = angular.module('leth', ['ionic', 'nfcFilters', 'ngTagsInput', 'angular
                 buttonACTextColor:  "#F288A6",
                 buttonDelColor:  "#FFFFFF",
                 buttonDelTextColor: "#F288A6",
-    			ACDelbuttons: true,
+    			ACDelbuttons: true, 
     			onCorrect: function () {},
     			onWrong: function (attemptNumber) {},
   		  });

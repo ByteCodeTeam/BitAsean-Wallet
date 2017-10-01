@@ -13,7 +13,7 @@ angular.module('leth.controllers')
 					  "lat": 13.746840,
 					  "lng": 100.535197
 					},
-				'zoom': 12
+				'zoom': 2
 			}
 	};
 
@@ -26,7 +26,7 @@ angular.module('leth.controllers')
 	}, false);
 
 	function onMapReady() { 
-		map.setMyLocationEnabled(true);
+		map.setMyLocationEnabled(true); 
 		getStoresData(); 
 		$timeout(function() {
            $ionicLoading.hide();
@@ -40,10 +40,10 @@ angular.module('leth.controllers')
 			boundsDraw: false,
 			markers: $scope.storesData,
 			icons: [
-			  {min: 2, max: 100, url: "././img/blue.png", anchor: {x: 16, y: 16}},
-			  {min: 100, max: 1000, url: "././img/yellow.png", anchor: {x: 16, y: 16}},
-			  {min: 1000, max: 2000, url: "././img/purple.png", anchor: {x: 24, y: 24}},
-			  {min: 2000, url: "././img/red.png",anchor: {x: 32,y: 32}}
+			  {min: 2, max: 100, url: "././img/blue.png", anchor: {x: 16, y: 16},label: {color:"#ffffff"}},
+			  {min: 100, max: 1000, url: "././img/yellow.png", anchor: {x: 16, y: 16},label: {color:"#ffffff"}},
+			  {min: 1000, max: 2000, url: "././img/purple.png", anchor: {x: 24, y: 24},label: {color:"#ffffff"}},
+			  {min: 2000, url: "././img/red.png",anchor: {x: 32,y: 32},label: {color:"#ffffff"}}
 			]
 			
 		  }, function (markerCluster) {

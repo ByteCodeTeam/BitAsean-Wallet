@@ -1216,7 +1216,7 @@ angular.module('leth.controllers', [])
     AppService.setWeb3Provider(global_keystore);
     $scope.qrcodeString = AppService.account();
 
-  setChatFilter();
+    setChatFilter();
 
 
   }else{
