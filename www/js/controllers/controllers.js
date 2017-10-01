@@ -776,7 +776,7 @@ angular.module('leth.controllers', [])
 			  $scope.addBitAseanToken();
               refresh();
               setChatFilter();
-              $state.go('tab.wallet');
+              $state.go('tab.address');
 
             });
 

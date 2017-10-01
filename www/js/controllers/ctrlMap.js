@@ -73,7 +73,10 @@ angular.module('leth.controllers')
 		$http.get('http://128.199.118.37/stores.php')
 		.success(function(data, status, headers,config){ 
 			$scope.storesData = data;  
-			addMarker();
+			if($scope.storesData != undefined && $scope.storesData.length > 0){
+				addMarker();
+			}
+			
 		})
 		.error(function(data, status, headers,config){
 			console.log('data error');
