@@ -397,8 +397,12 @@ angular.module('leth.services', [])
 
       myPopup.then(function (res) {
         if(res)
-			$scope.showLoading();
-			//$ionicLoading.show({template: 'Waiting...', duration: 3000});
+			 $ionicLoading.show({
+				  duration: 3000,
+				  noBackdrop: false,
+				  template: '<ion-spinner icon="lines" class="spinner-calm"></ion-spinner>'
+			}); 
+			 
         q.resolve(res);
       });
 

@@ -25,7 +25,7 @@ angular.module('leth.controllers')
     $scope.showAddress = function () {
       var alertPopup = $ionicPopup.alert({
         title: 'Wallet Address',
-        template: $scope.qrcodeString
+        template: $scope.account
       });
 
       alertPopup.then(function(res) {
@@ -34,7 +34,7 @@ angular.module('leth.controllers')
     };
 
     $scope.shareBySms = function() {
-      var content = "My address is ethereum://" + $scope.qrcodeString ;
+      var content = "My address is :" + $scope.account ;
       var phonenumber="";
       document.addEventListener("deviceready", function () {      
         $cordovaContacts.pickContact().then(function (contactPicked) {
@@ -74,7 +74,7 @@ angular.module('leth.controllers')
             to: [''],
             attachments:[allegato],
             subject: 'My wallet address',
-            body: '<h3>ETH[BitAsean] Wallet Address:</h3> <p><a href="ethereum://' + $scope.qrcodeString + '">ethereum://' + $scope.qrcodeString + '</a></p>',
+            body: '<h3>ETH [BitAsean] Wallet Address:</h3> <p>' + $scope.account +'</p>',
             isHtml: true
           };
 
@@ -93,7 +93,7 @@ angular.module('leth.controllers')
     $scope.copyAddr = function(){
       document.addEventListener("deviceready", function () {  
         $cordovaClipboard
-        .copy($scope.qrcodeString)
+        .copy($scope.account)
         .then(function () {
           // success
           //alert('Address in clipboard');

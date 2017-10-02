@@ -120,7 +120,7 @@ angular.module('leth.controllers')
 	
 	$scope.refreshBalance = function(){ 
 	
-		if($scope.idCoin == 0 || $scope.idCoin === undefined)  //buggy from wallet refresh  
+		if($scope.idCoin == 0 || $scope.idCoin === undefined) 
 			$scope.balance = AppService.balance($scope.unit);
 		else
 			$scope.balance = AppService.balanceOf($scope.contractCoin,$scope.unit + 'e+' + $scope.decimals); 
@@ -139,9 +139,8 @@ angular.module('leth.controllers')
       }
     };
 
-    $scope.$on('$ionicView.enter', function() {
-	 
-	  
+    $scope.$on('$ionicView.enter', function() {  
+		$scope.refreshBalance(); 
     })
 
   
@@ -212,12 +211,16 @@ angular.module('leth.controllers')
           function (result) {
 			$ionicLoading.hide();
             if (result[0] != undefined) {
+			
+              var errorMsg = result[0].toString();			 
+			  if(errorMsg.indexOf("unknown account") >= 0){
+				  errorMsg = errorMsg+', please check your password.'
+			  }	
               var errorPopup = $ionicPopup.alert({
                 title: 'Error',
-                template: result[0]
+                template: errorMsg
               });
-              errorPopup.then(function (res) {
-                
+              errorPopup.then(function (res) { 
                 console.log(res);
               });
             } else {
@@ -226,12 +229,13 @@ angular.module('leth.controllers')
                 template: result[1]
               });
               successPopup.then(function (res) { 
+				var ref = cordova.InAppBrowser.open('https://etherscan.io/tx/'+result[1], '_blank');  
                 //$state.go('tab.transall');
               });
               //save transaction
               var newT = {from: $scope.account, to: addr, id: result[1], value: value, unit: unit, symbol: $scope.symbolCoin, time: new Date().getTime()};
               $scope.transactions = Transactions.add(newT);
-              Chat.sendTransactionNote(newT);              
+              //Chat.sendTransactionNote(newT);              
               refresh();
             }
           },
@@ -251,17 +255,16 @@ angular.module('leth.controllers')
       else{
         AppService.transferEth($scope.account, addr, value, $scope.fee).then(
           function (result) {
-            //$ionicLoading.show({template: 'Sending...'});
-			$ionicLoading.show({
-			  duration: 3000,
-			  noBackdrop: true,
-			  template: '<ion-spinner icon="lines" class="spinner-calm"></ion-spinner>'
-			});
-	
-            if (result[0] != undefined) {
+            $ionicLoading.hide();
+            if (result[0] != undefined) { 
+			  var errorMsg = result[0].toString();			 
+			  if(errorMsg.indexOf("unknown account") >= 0){
+				  errorMsg = errorMsg+', please check your password.'
+			  }
+			  
               var errorPopup = $ionicPopup.alert({
                 title: 'Error',
-                template: result[0]
+                template: errorMsg
               });
               errorPopup.then(function (res) {
                 $ionicLoading.hide();
@@ -273,14 +276,13 @@ angular.module('leth.controllers')
                 template: result[1]
               });
               successPopup.then(function (res) {
-                $ionicLoading.hide();
-                
-                $state.go('tab.transall');
+				var ref = cordova.InAppBrowser.open('https://etherscan.io/tx/'+result[1], '_blank');  
+                //$state.go('tab.transall');
               });
               //save transaction
               var newT = {from: $scope.account, to: addr, id: result[1], value: value, unit: unit, symbol: $scope.symbolCoin, time: new Date().getTime()};
               $scope.transactions = Transactions.add(newT);
-              Chat.sendTransactionNote(newT);              
+              //Chat.sendTransactionNote(newT);              
               refresh();
             }
           },
