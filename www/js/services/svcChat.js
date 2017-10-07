@@ -34,11 +34,11 @@ angular.module('leth.services')
         to: [null], 
         text: '', 
         image: '',  
-        senderKey: AppService.idkey(),
-        attach: {
-          addr: AppService.account(), 
-          idkey: AppService.idkey()
-        }
+        senderKey: AppService.idkey()
+        //attach: {
+        //  addr: AppService.account(), 
+        //  idkey: AppService.idkey()
+        //}
       }
     },
     wrap: function(payload){
